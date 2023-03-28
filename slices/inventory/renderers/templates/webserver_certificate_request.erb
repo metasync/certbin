@@ -1,0 +1,33 @@
+[Version]
+Signature= "$Windows NT$" 
+ 
+[NewRequest]
+Subject = "E=<%= certificate[:email] %>, CN=<%= certificate[:common_name] %>, OU=<%= certificate[:organization_unit] %>, O=<%= certificate[:organization] %>, L=<%= certificate[:locality] %>, S=<%= certificate[:state_or_province] %>, C=<%= certificate[:country] %>"
+FriendlyName = "<%= certificate[:common_name] %>"
+KeySpec = 1
+KeyLength = <%= certificate[:key_size] %>
+Exportable = TRUE
+MachineKeySet = TRUE
+SMIME = False
+PrivateKeyArchive = FALSE
+UserProtected = FALSE
+UseExistingKeySet = FALSE
+ProviderName = "Microsoft RSA SChannel Cryptographic Provider"
+ProviderType = 12
+RequestType = PKCS10
+KeyUsage = 0xa0
+
+[RequestAttributes]
+CertificateTemplate="<%= certificate[:template] %>"
+ 
+[EnhancedKeyUsageExtension]
+OID=1.3.6.1.5.5.7.3.1
+[Extensions]
+2.5.29.17 = "{text}"
+<% certificate[:dns_records].each do |dns_record| %>
+_continue_ = "dns=<%= dns_record[:value] %>&"
+<% end %>
+<% certificate[:ip_addresses].each do |ip_address| %>
+_continue_ = "ipaddress=<%= ip_address[:value] %>&"
+<% end %>
+_continue_ = "host=<%= certificate[:host] %>&"

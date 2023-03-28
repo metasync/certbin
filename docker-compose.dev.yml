@@ -1,0 +1,9 @@
+version: "3.6"
+
+services:
+  certman:
+    # For development only
+    image: quay.io/chimanlei/ruby:3.2.1-alpine3.17
+    volumes:
+      - ./:/home/app
+      - ./bundle:/usr/local/bundle

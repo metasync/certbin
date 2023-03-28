@@ -1,0 +1,12 @@
+**/.bundle/
+**/bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/log/
+.DS_Store
+.bash_history

@@ -29,13 +29,13 @@ module Certman
       get "/certificates/renewing", to: "certificates.find_renewing"
       get "/certificates/revoking", to: "certificates.find_revoking"
       get "/certificates/revoked", to: "certificates.find_revoked"
-      get "/certificates/retirable", to: "certificates.find_retirable"
       get "/certificates/withdrawable", to: "certificates.find_revoked"
     end
 
     slice :issuer, at: "/issuer" do
       get "/certificates/:id/cert_request", to: "certificates.show_certificate_request"
-      put "/certificates/issue", to: "certificates.issue"
+      get "/certificates/:id/cert_content", to: "certificates.show_certificate_content"
+      put "/certificates/:id/issue", to: "certificates.issue"
       put "/certificates/:id/renew", to: "certificates.renew"
       put "/certificates/:id/revoke", to: "certificates.revoke"
       put "/certificates/:id/revoke_complete", to: "certificates.revoke_complete"

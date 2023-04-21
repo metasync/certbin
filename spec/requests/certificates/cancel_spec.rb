@@ -25,7 +25,6 @@ RSpec.describe "PUT /certificates/:id/cacnel", type: [:request, :database] do
 
       put "/certificates/#{@id}/cancel", {}.to_json, request_headers
 
-      certificate = JSON.parse(last_response.body)
       expect(last_response).to be_unprocessable
       result = JSON.parse(last_response.body)
       expect(result["status"].first).to eq("must be \"requested\"")

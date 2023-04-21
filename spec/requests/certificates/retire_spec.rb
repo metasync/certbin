@@ -30,7 +30,6 @@ RSpec.describe "PUT /deployer/certificates/:id/retire", type: [:request, :databa
 
       put "/deployer/certificates/#{@id}/retire", {}.to_json, request_headers
 
-      certificate = JSON.parse(last_response.body)
       expect(last_response).to be_unprocessable
       result = JSON.parse(last_response.body)
       expect(result["status"].first).to eq("must be \"expired\" over #{app.settings.days_before_retirement} days")

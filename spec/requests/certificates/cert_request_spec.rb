@@ -2,17 +2,15 @@
 
 RSpec.describe "GET /issuer/certificates/:id/cert_request", type: :request do
   context "show certificate request for a given certificate" do
-    # let(:id) { cert_repo.create(sample_cert).id }
-
     it "return certificate request" do
       get "/issuer/certificates/#{@id}/cert_request"
   
       expect(last_response).to be_successful
   
-      cert_request = JSON.parse(last_response.body)
+      certificate = JSON.parse(last_response.body)
 
-      expect(cert_request["id"]).to eq(@id)
-      expect(cert_request["cert_request"]).not_to be(nil)
+      expect(certificate["id"]).to eq(@id)
+      expect(certificate["cert_request"]).not_to be(nil)
     end
   end
 

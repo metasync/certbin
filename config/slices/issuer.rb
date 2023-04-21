@@ -5,6 +5,7 @@ module Issuer
     import keys: [
         "operations.find_certificates",
         "operations.render_certificate_request",
+        "operations.retrieve_certificate_content",
         "operations.issue_certificate",
         "operations.renew_certificate",
         "operations.revoke_certificate",

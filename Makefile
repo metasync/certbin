@@ -6,9 +6,33 @@ include Makefile.env
 # 		--build-arg CHRONOS_IMAGE_TAG=${CHRONOS_IMAGE_TAG} \
 # 		--build-arg PROJECT=$(project)
 
-# run.simulator:
-# 	@${CONTAINER_CLI} run --rm -it \
-# 		${SIMULATOR_IMAGE} /bin/sh
+build.api.html2:
+	@${CONTAINER_CLI} run --rm \
+		-v ${OPENAPI_SPEC_PATH}:/local openapitools/openapi-generator-cli:v6.5.0 generate \
+		-i /local/certman_spec.yml \
+		-g html2 \
+		-o /local/out/html2
+
+build.api.powershell:
+	@${CONTAINER_CLI} run --rm \
+		-v ${OPENAPI_SPEC_PATH}:/local openapitools/openapi-generator-cli:v6.5.0 generate \
+		-i /local/certman_spec.yml \
+		-g powershell  \
+		-o /local/out/powershell 
+
+validate.api.spec:
+	@${CONTAINER_CLI} run --rm \
+		-v ${OPENAPI_SPEC_PATH}:/local openapitools/openapi-generator-cli:v6.5.0 validate \
+		-i /local/certman_spec.yml --recommend
+
+run.api.doc:
+	@${CONTAINER_CLI} run --rm \
+		-p 8080:8080 \
+		--name certman-openapi \
+		-e SWAGGER_JSON=/api_spec/certman_spec.yml \
+		-e DEFAULT_MODELS_EXPAND_DEPTH=10 \
+		-v ${OPENAPI_SPEC_PATH}:/api_spec/ swaggerapi/swagger-ui:v5.0.0-alpha.6
+
 
 up:
 	@${CONTAINER_CLI} compose up -d
@@ -17,7 +41,7 @@ up.dev:
 down:
 	@${CONTAINER_CLI} compose down
 ps:
-	@${CONTAINER_CLI} ps -a
+	@${CONTAINER_CLI} compose ps -a
 logs:
 	@${CONTAINER_CLI} compose logs -f
 

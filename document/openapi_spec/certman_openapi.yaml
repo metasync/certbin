@@ -1,0 +1,843 @@
+openapi: 3.0.3
+servers:
+  - url: http://127.0.0.1:2300
+    description: CertMan JSON Api Services (development)
+info:
+  title: CertMan OpenAPI
+  description: CertMan JSON Api specifications
+  version: 0.1.1
+  contact:
+    name: Chi Man Lei
+    email: chimanlei@gmail.com
+tags:
+  - name: requester
+    description: Requester operations
+  - name: issuer
+    description: Issuer operations
+  - name: deployer
+    description: Deployer operations
+paths:
+  /certificates:
+    post:
+      tags: ["requester"]
+      operationId: create_certificate
+      description: Create a new certificate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/new_certificate"
+      responses:
+        "200":
+          description: A new certificate was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "422":
+          description: Request is unprocessable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_unprocessable"
+  /certificates/{id}/cancel:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: integer
+    put:
+      operationId: cancel_certificate
+      tags: ["requester"]
+      description: Cancel certificate request
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /certificates/common_name/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of common name
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_common_name
+      tags: ["requester"]
+      description: Find certificates by common name
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/ip_address/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of IP address
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_ip_address
+      tags: ["requester"]
+      description: Find certificates by IP address
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/status/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of status
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_status
+      tags: ["requester"]
+      description: Find certificates by status
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/host/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of host
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_host
+      tags: ["requester"]
+      description: Find certificates by host
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/dns_record/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of DNS record
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_dns_record
+      tags: ["requester"]
+      description: Find certificates by DNS record
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/id/{value}:
+    parameters:
+      - name: value
+        in: path
+        description: value of ID
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_by_id
+      tags: ["requester"]
+      description: Find certificates by ID
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /certificates/retirable:
+    get:
+      operationId: find_retirable
+      tags: ["requester"]
+      description: Find retirable certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/expirable:
+    get:
+      operationId: find_expirable
+      tags: ["requester"]
+      description: Find expirable certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/expires_in/{days}:
+    parameters:
+      - name: days
+        in: path
+        description: number of days
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: find_expires_in
+      tags: ["requester"]
+      description: Find certificates expiring in givne days
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/requested:
+    get:
+      operationId: find_requested
+      tags: ["requester"]
+      description: Find requested certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/issued:
+    get:
+      operationId: find_issued
+      tags: ["requester"]
+      description: Find issued certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/deployed:
+    get:
+      operationId: find_deployed
+      tags: ["requester"]
+      description: Find deployed certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/renewable:
+    get:
+      operationId: find_renewable
+      tags: ["requester"]
+      description: Find renewable certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/renewing:
+    get:
+      operationId: find_renewing
+      tags: ["requester"]
+      description: Find renewing certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/revoking:
+    get:
+      operationId: find_revoking
+      tags: ["requester"]
+      description: Find revoking certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/revoked:
+    get:
+      operationId: find_revoked
+      tags: ["requester"]
+      description: Find revoked certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /certificates/withdrawable:
+    get:
+      operationId: find_withdrawable
+      tags: ["requester"]
+      description: Find withdrawable certificates
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificates"
+  /issuer/certificates/{id}/cert_request:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: show_certificate_request
+      tags: ["issuer"]
+      description: Show certificate request
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate_request"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/cert_content:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: show_certificate_content
+      tags: ["issuer"]
+      description: Show certificate content encoded in base 64
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate_content"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/issue:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Issue certificate
+      requestBody:
+        description: Certificate content encoded in base64
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                certificate_pfx:
+                  type: string
+                  description: Certificate in pfx format
+                certificate_crt:
+                  type: string
+                  description: Certificate in crt format
+      operationId: issue_certificate
+      tags: ["issuer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/renew:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Renew certificate
+      operationId: renew_certificate
+      tags: ["issuer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/revoke:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Revoke certificate
+      operationId: revoke_certificate
+      tags: ["issuer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/revoke_complete:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Revoke certificate complete
+      operationId: revoke_complete_certificate
+      tags: ["issuer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /issuer/certificates/{id}/expire:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Expire certificate
+      operationId: expire_certificate
+      tags: ["issuer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /deployer/certificates/{id}/deploy_complete:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Deploy certificate complete
+      operationId: deploy_complete_certificate
+      tags: ["deployer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /deployer/certificates/{id}/retire:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Retire certificate complete
+      operationId: retire_certificate
+      tags: ["deployer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+  /deployer/certificates/{id}/withdraw:
+    parameters:
+      - name: id
+        in: path
+        description: Certificate ID
+        required: true
+        schema:
+          type: string
+    put:
+      description: Withdraw certificate complete
+      operationId: withdraw_certificate
+      tags: ["deployer"]
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/certificate"
+        "404":
+          description: Certificate is not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error_not_found"
+components:
+  schemas:
+    new_certificate:
+      type: object
+      properties:
+        organization_unit:
+          type: string
+          description: Organization unit
+        owner:
+          type: string
+          description: Onwer of the certificate
+        email:
+          type: string
+          description: Email of the certificate
+        environment:
+          type: string
+          description: Environment to apply the certificate
+        application:
+          type: string
+          description: Application to apply the certificate
+        template:
+          type: string
+          description: Template to render the certificate
+        key_size:
+          type: string
+          description: Key size of the certificate
+        common_name:
+          type: string
+          description: Common name of the certificate
+        dns_records:
+          type: array
+          items: 
+            type: string
+          description: DNS records of the certificate
+        host:
+          type: string
+          description: Host of the certificate
+        ip_addresses:
+          type: array
+          items:
+            type: string
+          description: IP addresses of the certificate
+        install_method:
+          type: string
+          description: Install method to deploy the certificate
+        reference_id:
+          type: string
+          description: Reference ID for the certificate
+    certificate_request:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the certificate
+        cert_request:
+          type: string
+          description: Certificate request
+    certificate_content:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the certificate
+        cert_request:
+          type: string
+          description: Certificate content encoded in base64
+    certificate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of the certificate
+        status:
+          type: string
+          description: Status of the certificate
+        organization_unit:
+          type: string
+          description: Organization unit of the certificate
+        organization:
+          type: string
+          description: Organization of the certificate
+        locality:
+          type: string
+          description: Locality of the certificate
+        state_or_province:
+          type: string
+          description: State or province of the certificate
+        country:
+          type: string
+          description: Country of the certificate
+        owner:
+          type: string
+          description: Owner of the certificate
+        email:
+          type: string
+          description: Email of the certificate
+        environment:
+          type: string
+          description: Environment of the certificate
+        application:
+          type: string
+          description: Application of the certificate
+        template:
+          type: string
+          description: Template of the certificate
+        key_size:
+          type: integer
+          description: Template of the certificate
+        common_name:
+          type: string
+          description: Common_name of the certificate
+        host:
+          type: string
+          description: Host of the certificate
+        install_method:
+          type: string
+          description: Install method of the certificate
+        reference_id:
+          type: string
+          description: Reference ID of the certificate
+        serial_number:
+          type: string
+          description: Serial number of the certificate
+        issued_on:
+          type: string
+          format: date-time
+          description: Date of the certificate
+        expires_on:
+          type: string
+          format: date-time
+          description: Date of the certificate
+        issuer:
+          type: string
+          description: Issuer of the certificate
+        certificate_content:
+          type: string
+          description: Certificate content of the certificate
+        requested_at:
+          type: string
+          format: date-time
+          description: Requested date of the certificate
+        cancelled_at:
+          type: string
+          format: date-time
+          description: Cancelled date of the certificate
+        issued_at:
+          type: string
+          format: date-time
+          description: Issued date of the certificate
+        deployed_at:
+          type: string
+          format: date-time
+          description: Deployed date of the certificate
+        renewed_at:
+          type: string
+          format: date-time
+          description: Renewed date of the certificate
+        expired_at:
+          type: string
+          format: date-time
+          description: Expired date of the certificate
+        revoked_at:
+          type: string
+          format: date-time
+          description: Revoked date of the certificate
+        withdrawn_at:
+          type: string
+          format: date-time
+          description: Withdrawn date of the certificate
+        retired_at:
+          type: string
+          format: date-time
+          description: Retired date of the certificate
+        remarks:
+          type: string
+          description: Remarks of the certificate if any
+        created_at:
+          type: string
+          format: date-time
+          description: Created date of the certificate
+        updated_at:
+          type: string
+          format: date-time
+          description: Updated date of the certificate
+        dns_records:
+          type: array
+          items: 
+            $ref: "#/components/schemas/dns_record" 
+          description: DNS records of the certificate
+        ip_addresses:
+          type: array
+          items: 
+            $ref: "#/components/schemas/ip_address" 
+          description: DNS records of the certificate
+    certificates:
+      type: array
+      items: 
+        $ref: "#/components/schemas/certificate" 
+    error_unprocessable:
+      type: object
+      additionalProperties: true
+    error_not_found:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+    dns_record: 
+      type: object
+      description: DNS records of the certificate
+      properties:
+        id: 
+          type: integer
+          description: ID of the DNS record
+        certificate_id:
+          type: integer
+          description: ID of the associated certificate
+        value:
+          type: integer
+          description: Value of the DNS record
+        created_at:
+          type: string
+          format: date-time
+          description: Created date of the DNS record
+        updated_at:
+          type: string
+          format: date-time
+          description: Updated date of the DNS record
+    ip_address: 
+      type: object
+      description: IP addresses of the certificate
+      properties:
+        id: 
+          type: integer
+          description: ID of the IP Address
+        certificate_id:
+          type: integer
+          description: ID of the associated certificate
+        value:
+          type: integer
+          description: Value of the IP address
+        created_at:
+          type: string
+          format: date-time
+          description: Created date of the IP address
+        updated_at:
+          type: string
+          format: date-time
+          description: Updated date of the IP address

@@ -28,25 +28,25 @@ ROM::SQL.migration do
       String :reference_id
 
       String :serial_number
-      Datetime :issued_on
-      Datetime :expires_on
+      DateTime :issued_on
+      DateTime :expires_on
       String :issuer
       String :certificate_content, text: true
 
-      Datetime :requested_at, null: false
-      Datetime :cancelled_at
-      Datetime :issued_at
-      Datetime :deployed_at
-      Datetime :renewed_at
-      Datetime :expired_at
-      Datetime :revoked_at
-      Datetime :withdrawn_at
-      Datetime :retired_at
+      DateTime :requested_at, null: false
+      DateTime :cancelled_at
+      DateTime :issued_at
+      DateTime :deployed_at
+      DateTime :renewed_at
+      DateTime :expired_at
+      DateTime :revoked_at
+      DateTime :withdrawn_at
+      DateTime :retired_at
 
       String :remarks
 
-      Datetime :created_at, null: false
-      Datetime :updated_at, null: false
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
 
       index [:owner, :environment, :status], name: "certman_certs_owner_env_status"
       index [:environment, :status], name: "certman_certs_env_status"

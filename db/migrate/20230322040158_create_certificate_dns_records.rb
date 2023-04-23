@@ -6,8 +6,8 @@ ROM::SQL.migration do
       primary_key :id, type: :Bignum
       foreign_key :certificate_id, :certificates, type: :Bignum, on_delete: :cascade
       String :value, null: false
-      Datetime :created_at, null: false
-      Datetime :updated_at, null: false
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
 
       index [:value, :certificate_id], unique: true
     end

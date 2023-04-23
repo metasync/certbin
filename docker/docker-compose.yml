@@ -1,0 +1,18 @@
+version: "3.6"
+
+services:
+  certman:
+    image: quay.io/chimanlei/certman:${CERTMAN_VERSION}
+    ports:
+      - 2300:2300
+    depends_on:
+      - certmandb
+      - certmandb.test
+    env_file:
+      - common.env
+      - ${DB_ADAPTER}/database.env
+    command: [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
+    # entrypoint: /bin/sh
+    # stdin_open: true
+    # tty: true
+

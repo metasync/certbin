@@ -1,5 +1,14 @@
 # Change log
 
+## [0.1.6] - 2023-04-23
+
+  * Revised environment file for Hanami
+  * Refactored docker compose files
+  * Added dockerignore file
+  * Supported PostgresSQL as database engine in addition to MSSQL
+  * Fixed DateTime type for migration columns
+  * Added Dockefiles to support local/remote image build
+
 ## [0.1.5] - 2023-04-21
 
   * Added support for API spec documentation generation

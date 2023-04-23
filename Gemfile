@@ -14,6 +14,7 @@ gem "rake"
 gem "rom", "~> 5.3"
 gem "rom-sql", "~> 3.6"
 gem "tiny_tds", "~> 2.1"
+gem 'pg', "~> 1.4"
 
 group :development, :test do
   gem "dotenv"

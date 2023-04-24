@@ -1,0 +1,27 @@
+require: rubocop-rspec
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 3.2.1
+  NewCops: enable
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EndlessMethod:
+  Enabled: false
+
+Style/HashConversion:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 140

@@ -6,15 +6,15 @@ module Inventory
       protected
 
       def updatable?(certificate)
-        certificate[:status] == "revoked"
+        certificate[:status] == 'revoked'
       end
 
-      def certificate_updates(certificate) = {
-        status: "withdrawn",
-        withdrawn_at: Time.now,
+      def certificate_updates(_certificate) = {
+        status: 'withdrawn',
+        withdrawn_at: Time.now
       }
 
-      def error(certificate) =
+      def error(_certificate) =
         { status: ['must be "revoked"'] }
     end
   end

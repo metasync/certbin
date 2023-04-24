@@ -4,7 +4,7 @@ module Deployer
   module Actions
     module Certificates
       class Withdraw < Deployer::Action
-        include Deps["inventory.operations.withdraw_certificate"]
+        include Deps['inventory.operations.withdraw_certificate']
 
         params do
           required(:id).filled(:integer)

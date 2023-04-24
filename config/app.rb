@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "hanami"
-require_relative "version"
+require 'hanami'
+require_relative 'version'
 
 module Certman
   class App < Hanami::App

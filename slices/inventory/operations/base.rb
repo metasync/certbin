@@ -4,8 +4,8 @@ module Inventory
   module Operations
     class Base
       include Deps[
-        "settings",
-        "repositories.certificates"
+        'settings',
+        'repositories.certificates'
       ]
     end
   end

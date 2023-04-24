@@ -4,7 +4,7 @@ module Requester
   module Actions
     module Certificates
       class Cancel < Requester::Action
-        include Deps["inventory.operations.cancel_certificate_request"]
+        include Deps['inventory.operations.cancel_certificate_request']
 
         params do
           required(:id).filled(:integer)

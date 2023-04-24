@@ -4,7 +4,7 @@ module Deployer
   module Actions
     module Certificates
       class DeployComplete < Deployer::Action
-        include Deps["inventory.operations.deploy_certificate_complete"]
+        include Deps['inventory.operations.deploy_certificate_complete']
 
         params do
           required(:id).filled(:integer)

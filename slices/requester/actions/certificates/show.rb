@@ -12,7 +12,7 @@ module Requester
 
         protected
 
-        def handle_request(request) = 
+        def handle_request(request) =
           find_certificates.by_id(request.params[:id])
       end
     end

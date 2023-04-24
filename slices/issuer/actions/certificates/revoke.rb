@@ -4,7 +4,7 @@ module Issuer
   module Actions
     module Certificates
       class Revoke < Issuer::Action
-        include Deps["inventory.operations.revoke_certificate"]
+        include Deps['inventory.operations.revoke_certificate']
 
         params do
           required(:id).filled(:integer)

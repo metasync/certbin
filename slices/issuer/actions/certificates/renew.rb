@@ -4,7 +4,7 @@ module Issuer
   module Actions
     module Certificates
       class Renew < Issuer::Action
-        include Deps["inventory.operations.renew_certificate"]
+        include Deps['inventory.operations.renew_certificate']
 
         params do
           required(:id).filled(:integer)

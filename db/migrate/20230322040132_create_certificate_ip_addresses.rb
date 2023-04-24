@@ -9,7 +9,7 @@ ROM::SQL.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:value, :certificate_id], unique: true
+      index %i[value certificate_id], unique: true
     end
   end
 end

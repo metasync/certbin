@@ -3,12 +3,10 @@
 RSpec.describe Certman::Actions::Health::Liveness::Index do
   let(:params) { {} }
 
-  it "works" do
+  it 'probes liveness' do
     response = subject.call(params)
     expect(response).to be_successful
     expect(response.format).to eq(:json)
-    expect(response.body).to eq(
-      [{"status" => "ok"}.to_json]
-    )
+    expect(response.body).to eq([{ 'status' => 'ok' }.to_json])
   end
 end

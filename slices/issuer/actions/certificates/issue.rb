@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "openssl"
+require 'openssl'
 
 module Issuer
   module Actions
     module Certificates
       class Issue < Issuer::Action
-        include Deps["inventory.operations.issue_certificate"]
+        include Deps['inventory.operations.issue_certificate']
 
         handle_exception OpenSSL::X509::CertificateError => :handle_certificate_error
         handle_exception OpenSSL::PKCS12::PKCS12Error => :handle_certificate_error
@@ -29,7 +29,7 @@ module Issuer
           )
         end
 
-        def handle_certificate_error(request, response, exception)
+        def handle_certificate_error(_request, response, exception)
           response.status = :unprocessable_entity
           response.body = { error: exception.message }.to_json
         end

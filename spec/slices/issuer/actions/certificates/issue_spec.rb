@@ -3,7 +3,7 @@
 RSpec.describe Issuer::Actions::Certificates::Issue do
   let(:params) { Hash[] }
 
-  it "works" do
+  it 'works' do
     response = subject.call(params)
     expect(response).to be_successful
   end

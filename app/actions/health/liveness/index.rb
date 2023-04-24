@@ -6,7 +6,7 @@ module Certman
       module Liveness
         class Index < Certman::Action
           def handle(*, response)
-            response.body = {status: "ok"}.to_json
+            response.body = { status: 'ok' }.to_json
           end
         end
       end

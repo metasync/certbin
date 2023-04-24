@@ -6,13 +6,13 @@ module Inventory
       protected
 
       def updatable?(certificate)
-        ["deployed", "issued"].include?(certificate[:status])
+        %w[deployed issued].include?(certificate[:status])
       end
 
-      def certificate_updates(certificate) = 
-        { status: "revoking" }
+      def certificate_updates(_certificate) =
+        { status: 'revoking' }
 
-      def error(certificate) =
+      def error(_certificate) =
         { status: ['must be "deployed" or "issued"'] }
     end
   end

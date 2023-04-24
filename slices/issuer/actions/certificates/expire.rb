@@ -4,7 +4,7 @@ module Issuer
   module Actions
     module Certificates
       class Expire < Issuer::Action
-        include Deps["inventory.operations.expire_certificate"]
+        include Deps['inventory.operations.expire_certificate']
 
         params do
           required(:id).filled(:integer)

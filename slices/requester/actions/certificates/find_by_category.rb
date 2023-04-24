@@ -6,12 +6,12 @@ module Requester
       class FindByCategory < Finder
         protected
 
-        def find(params)
+        def find(_params)
           find_certificates.send(attribute)
         end
 
         def attribute = inflector.singularize(
-          inflector.tableize(self.class.name.split("Find").last)
+          inflector.tableize(self.class.name.split('Find').last)
         )
       end
     end

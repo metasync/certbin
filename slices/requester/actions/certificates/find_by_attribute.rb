@@ -15,7 +15,7 @@ module Requester
         end
 
         def attribute = inflector.singularize(
-          inflector.tableize(self.class.name.split("FindBy").last)
+          inflector.tableize(self.class.name.split('FindBy').last)
         )
       end
     end

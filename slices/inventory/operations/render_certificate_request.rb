@@ -3,11 +3,11 @@
 module Inventory
   module Operations
     class RenderCertificateRequest < Base
-      include Deps["renderers.certificate_request"]
+      include Deps['renderers.certificate_request']
 
       def call(id) = {
         certificate: {
-          id: id,
+          id:,
           cert_request: render_certificate_request(certificates.find(id))
         }
       }

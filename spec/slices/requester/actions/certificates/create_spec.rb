@@ -3,7 +3,7 @@
 RSpec.describe Requester::Actions::Certificates::Create do
   let(:params) { {} }
 
-  it "works" do
+  it 'works' do
     response = subject.call(params)
     expect(response).to be_successful
   end

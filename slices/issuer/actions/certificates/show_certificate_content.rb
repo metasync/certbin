@@ -4,7 +4,7 @@ module Issuer
   module Actions
     module Certificates
       class ShowCertificateContent < Issuer::Action
-        include Deps["inventory.operations.retrieve_certificate_content"]
+        include Deps['inventory.operations.retrieve_certificate_content']
 
         params do
           required(:id).value(:integer)

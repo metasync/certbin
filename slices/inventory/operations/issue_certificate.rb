@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "base64"
-require "openssl"
+require 'base64'
+require 'openssl'
 
 module Inventory
   module Operations
@@ -9,16 +9,16 @@ module Inventory
       protected
 
       def updatable?(certificate) =
-        ["requested", "renewing"].include?(certificate[:status])
+        %w[requested renewing].include?(certificate[:status])
 
       def certificate_updates(certificate, certificate_content:)
-        { status: "issued" }.merge!(
+        { status: 'issued' }.merge!(
           decode_certificate(certificate_content)
         ).merge!(
           case certificate.status
-          when "requested"
+          when 'requested'
             { issued_at: Time.now }
-          when "renewing"
+          when 'renewing'
             { renewed_at: Time.now }
           else
             {}
@@ -42,7 +42,7 @@ module Inventory
         }
       end
 
-      def error(certificate) =
+      def error(_certificate) =
         { status: ['must be "requested" or "renewing"'] }
     end
   end

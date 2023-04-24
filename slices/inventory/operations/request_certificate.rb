@@ -12,11 +12,11 @@ module Inventory
       def new_certificate(certificate)
         now = Time.now
         certificate[:dns_records].map! do |dns_record|
-          { 
+          {
             value: dns_record,
             updated_at: now,
             created_at: now
-           }
+          }
         end
         certificate[:ip_addresses].map! do |ip_address|
           {
@@ -30,7 +30,7 @@ module Inventory
           locality: settings.locality,
           state_or_province: settings.state_or_province,
           country: settings.country,
-          status: "requested",
+          status: 'requested',
           requested_at: now,
           updated_at: now,
           created_at: now

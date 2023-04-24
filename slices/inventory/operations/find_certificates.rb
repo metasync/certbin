@@ -3,17 +3,17 @@
 module Inventory
   module Operations
     class FindCertificates < Base
-      def by_id(id) = 
+      def by_id(id) =
         { certificate: certificates.find(id) }
 
       def by_common_name(common_name) = {
         certificates: certificates.find_by_common_name(common_name)
       }
 
-      def by_status(status) = 
+      def by_status(status) =
         { certificates: certificates.find_by_status(status) }
 
-      def by_host(host) = 
+      def by_host(host) =
         { certificates: certificates.find_by_host(host) }
 
       def by_ip_address(ip_address) = {
@@ -24,32 +24,32 @@ module Inventory
         certificates: certificates.find_by_dns_record(dns_record)
       }
 
-      def requested = 
+      def requested =
         { certificates: certificates.find_requested }
 
-      def issued = 
+      def issued =
         { certificates: certificates.find_issued }
 
-      def deployed = 
+      def deployed =
         { certificates: certificates.find_deployed }
 
       def renewable = {
         certificates: certificates.find_renewable(settings.days_before_renewal)
       }
 
-      def renewing = 
+      def renewing =
         { certificates: certificates.find_renewing }
 
-      def revoking = 
+      def revoking =
         { certificates: certificates.find_revoking }
 
-      def revoked = 
+      def revoked =
         { certificates: certificates.find_revoked }
 
       def expires_in(days) =
         { certificates: certificates.find_expires_in(days) }
 
-      def expirable = 
+      def expirable =
         { certificates: certificates.find_expirable }
 
       def retirable = {

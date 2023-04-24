@@ -6,16 +6,16 @@ module Inventory
       protected
 
       def updatable?(certificate) =
-        certificate[:status] == "issued"
+        certificate[:status] == 'issued'
 
-      def certificate_updates(certificate) = 
+      def certificate_updates(_certificate) =
         {
-          status: "deployed",
+          status: 'deployed',
           deployed_at: Time.now
         }
 
-      def error(certificate) = 
-        { status: ['must be "issued"']}
+      def error(_certificate) =
+        { status: ['must be "issued"'] }
     end
   end
 end

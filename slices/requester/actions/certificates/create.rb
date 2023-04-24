@@ -4,7 +4,7 @@ module Requester
   module Actions
     module Certificates
       class Create < Requester::Action
-        include Deps["inventory.operations.request_certificate"]
+        include Deps['inventory.operations.request_certificate']
 
         params do
           required(:certificate).hash do
@@ -33,7 +33,8 @@ module Requester
         def handle_request(request) =
           request_certificate.call(request.params[:certificate])
 
-        def success_status(result) = :created # 201
+        # Return http status 201
+        def success_status(_result) = :created
       end
     end
   end

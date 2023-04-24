@@ -5,7 +5,7 @@ module Inventory
     class RetrieveCertificateContent < Base
       def call(id) = {
         certificate: {
-          id: id,
+          id:,
           cert_content: certificates.find(id).certificate_content
         }
       }

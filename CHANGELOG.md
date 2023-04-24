@@ -1,5 +1,12 @@
 # Change log
 
+## [0.1.7] - 2023-04-24
+
+  * Setup RuboCop of Ruby and RSpec
+  * Fixed offenses and RuboCop of Ruby and RSpec
+  * Created todoes for RuboCop of Ruby and RSpec
+  * Revised test certmandb setup in docker compose
+
 ## [0.1.6] - 2023-04-23
 
   * Revised environment file for Hanami

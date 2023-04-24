@@ -6,5 +6,5 @@ services:
     image: quay.io/chimanlei/ruby:3.2.1-alpine3.17
     volumes:
       - ../:/home/app
-      - ../bundle:/usr/local/bundle
+      - ../vendor/bundle:/usr/local/bundle
     command: [ "hanami", "server" ]

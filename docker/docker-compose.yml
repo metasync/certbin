@@ -7,7 +7,7 @@ services:
       - 2300:2300
     depends_on:
       - certmandb
-      - certmandb.test
+      # - certmandb.test
     env_file:
       - common.env
       - ${DB_ADAPTER}/database.env

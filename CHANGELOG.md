@@ -1,5 +1,11 @@
 # Change log
 
+## [0.1.8] - 2023-05-09
+
+  * Fixed issues on Dockerfile
+  * Changed service port number from 2300 to 8080
+  * Revised gitigonre and dockerigonre config
+
 ## [0.1.7] - 2023-04-24
 
   * Setup RuboCop of Ruby and RSpec

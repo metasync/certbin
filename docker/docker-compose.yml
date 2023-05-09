@@ -4,7 +4,7 @@ services:
   certman:
     image: quay.io/chimanlei/certman:${CERTMAN_VERSION}
     ports:
-      - 2300:2300
+      - 8080:8080
     depends_on:
       - certmandb
       # - certmandb.test

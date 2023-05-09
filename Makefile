@@ -1,15 +1,9 @@
 include Makefile.env
 
-build.certman.local:
+build.certman:
 	@${CONTAINER_CLI} build . \
 		-t ${CERTMAN_IMAGE} \
 		--build-arg RUBY_IMAGE_TAG=${RUBY_IMAGE_TAG}
-
-build.certman.remote:
-	@cd docker && ${CONTAINER_CLI} build . \
-		-t ${CERTMAN_IMAGE_REPO}:$(tag) \
-		--build-arg RUBY_IMAGE_TAG=${RUBY_IMAGE_TAG} \
-		--build-arg CERTMAN_TAG=$(tag)
 
 up:
 	@cd docker && ${CONTAINER_CLI} compose up -d
@@ -78,6 +72,6 @@ clean: prune
 		shell.certmandb logs.certmandb \
 		shell.certmandb.test logs.certmandb.test \
 		reset \
-		build.certman.local build.certman.remote \
+		build.certman \
 		build.api.html2 build.api.powershell validate.api.spec run.api.doc \
 		prune clean

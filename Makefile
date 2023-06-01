@@ -1,9 +1,23 @@
 include Makefile.env
 
 build.certbin:
-	@${CONTAINER_CLI} build . \
-		-t ${CERTBIN_IMAGE} \
-		--build-arg RUBY_IMAGE_TAG=${RUBY_IMAGE_TAG}
+	@${CONTAINER_CLI} build . -t ${IMAGE_NAME} \
+		--build-arg project=$(PROJECT_NAME) \
+		--build-arg app=$(APP_NAME) \
+		--build-arg version=$(APP_VERSION) \
+		--build-arg revision=$(APP_REVISION) \
+		--build-arg source=$(APP_SOURCE) \
+		--build-arg build_context=$(APP_CONTEXT) \
+		--build-arg dockerfile=$(APP_DOCKERFILE) \
+		--build-arg image_repo=$(IMAGE_REPO) \
+		--build-arg image_tag=$(IMAGE_TAG) \
+		--build-arg base_image_repo=$(BASE_IMAGE_REPO) \
+		--build-arg base_image_tag=$(BASE_IMAGE_TAG) \
+		--build-arg ruby_version=${RUBY_VERSION} \
+		--build-arg alpine_version=${ALPINE_VERSION}
+		
+push:
+	${CONTAINER_CLI} push $(IMAGE_NAME)
 
 up:
 	@cd docker && ${CONTAINER_CLI} compose up -d

@@ -1,6 +1,7 @@
-ARG BASE_IMAGE=docker.io/ruby
-ARG BASE_IMAGE_TAG=3.2.1-alpine3.17
-FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG} AS base
+
+ARG base_image_repo=docker.io/ruby
+ARG base_image_tag
+FROM ${base_image_repo}:${base_image_tag} AS base
 
 ENV APP_HOME=/home/app
 
@@ -20,6 +21,41 @@ RUN bundle config set without "development test" \
     && bundle install --jobs=3 --retry=3
 
 FROM base
+
+ARG project
+ARG app
+ARG version
+ARG revision
+ARG source
+ARG build_context
+ARG dockerfile
+ARG image_repo
+ARG image_tag
+ARG base_image_repo
+ARG base_image_tag
+
+ARG ruby_version
+ARG alpine_version
+
+LABEL project=${project} \
+    app=${app} \
+    version=${version} \
+    revision=${revision} \
+    source=${source} \
+    build_context=${build_context} \
+    dockerfile=${dockerfile} \
+    vendor="Metasync" \
+    \
+    image_repo=${image_repo} \
+    image_tag=${image_tag} \
+    image_name=${image_repo}:${image_tag} \
+    \
+    base_image_repo=${base_image_repo} \
+    base_image_tag=${base_image_tag} \
+    base_image_name=${base_image_repo}:${base_image_tag} \
+    \
+    ruby_version=${ruby_version} \
+    alpine_version=${alpine_version}
 
 ENV HISTFILE=${APP_HOME}/.bash_history
 

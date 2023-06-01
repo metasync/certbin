@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   certbin:
-    image: quay.io/chimanlei/certbin:${CERTBIN_VERSION}
+    image: quay.io/metasync/certops-certbin:${CERTBIN_VERSION}
     ports:
       - 8080:8080
     depends_on:

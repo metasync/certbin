@@ -1,5 +1,11 @@
 # Change log
 
+## [0.2.0] - 2023-06-01
+
+  * Renamed certman to certbin
+  * Refactored Dockerfile with image labels
+  * Minor updates on docker-compose config
+
 ## [0.1.8] - 2023-05-09
 
   * Fixed issues on Dockerfile
@@ -11,7 +17,7 @@
   * Setup RuboCop of Ruby and RSpec
   * Fixed offenses and RuboCop of Ruby and RSpec
   * Created todoes for RuboCop of Ruby and RSpec
-  * Revised test certmandb setup in docker compose
+  * Revised test certbindb setup in docker compose
 
 ## [0.1.6] - 2023-04-23
 

@@ -1,29 +1,29 @@
 version: "3.6"
 
 services:
-  certmandb:
+  certbindb:
     # image: mcr.microsoft.com/mssql/server:2019-CU19-ubuntu-20.04
     image: mcr.microsoft.com/mssql/server:2022-CU3-ubuntu-20.04
     environment: 
       ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: mssql-certman
-      MSSQL_DATABASE: certman
+      MSSQL_SA_PASSWORD: mssql-certbin
+      MSSQL_DATABASE: certbin
     working_dir: /home/app
     volumes:
-      - dev_certmandb_mssql:/var/opt/mssql
+      - dev_certbindb_mssql:/var/opt/mssql
       - ./scripts:/home/app
-  # certmandb.test:
+  # certbindb.test:
   #   # image: mcr.microsoft.com/mssql/server:2019-CU19-ubuntu-20.04
   #   image: mcr.microsoft.com/mssql/server:2022-CU3-ubuntu-20.04
   #   environment: 
   #     ACCEPT_EULA: Y
-  #     MSSQL_SA_PASSWORD: mssql.certman0
-  #     MSSQL_DATABASE: certman
+  #     MSSQL_SA_PASSWORD: mssql.certbin0
+  #     MSSQL_DATABASE: certbin
   #   working_dir: /home/app
   #   volumes:
-  #     - test_certmandb_mssql:/var/opt/mssql
+  #     - test_certbindb_mssql:/var/opt/mssql
   #     - ./scripts:/home/app
 
 volumes:
-  dev_certmandb_mssql:
-  # test_certmandb_mssql:
+  dev_certbindb_mssql:
+  # test_certbindb_mssql:

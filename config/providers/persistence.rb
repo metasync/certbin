@@ -14,8 +14,8 @@ Hanami.app.register_provider :persistence, namespace: true do
     config = target['persistence.config']
 
     config.auto_registration(
-      target.root.join('lib/certman/persistence'),
-      namespace: 'Certman::Persistence'
+      target.root.join('lib/certbin/persistence'),
+      namespace: 'Certbin::Persistence'
     )
 
     register 'rom', ROM.container(config)

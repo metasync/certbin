@@ -2,6 +2,6 @@
 # frozen_string_literal: true
 
 module Inventory
-  class Action < Certman::Action
+  class Action < Certbin::Action
   end
 end

@@ -2,7 +2,7 @@
 
 module Inventory
   module Repositories
-    class Certificates < Certman::Repository[:certificates]
+    class Certificates < Certbin::Repository[:certificates]
       include Deps[
         'repositories.certificate_ip_addresses',
         'repositories.certificate_dns_records'

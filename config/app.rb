@@ -3,7 +3,7 @@
 require 'hanami'
 require_relative 'version'
 
-module Certman
+module Certbin
   class App < Hanami::App
     config.actions.format :json
     config.middleware.use :body_parser, :json

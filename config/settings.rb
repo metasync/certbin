@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Certman
+module Certbin
   class Settings < Hanami::Settings
     setting :database_url, constructor: Types::String
     setting :environments, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }

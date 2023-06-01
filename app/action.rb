@@ -4,7 +4,7 @@
 require 'hanami/action'
 require 'rom'
 
-module Certman
+module Certbin
   class Action < Hanami::Action
     handle_exception ROM::TupleCountMismatchError => :handle_record_not_found
 

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Certman
+module Certbin
   class Routes < Hanami::Routes
-    root { "Weclome to Certman version #{Certman::App::VERSION}" }
+    root { "Weclome to Certbin version #{Certbin::App::VERSION}" }
     get '/health/liveness', to: 'health.liveness.index'
 
     slice :inventory, at: '/inventory' do

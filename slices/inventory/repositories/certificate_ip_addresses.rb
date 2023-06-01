@@ -2,7 +2,7 @@
 
 module Inventory
   module Repositories
-    class CertificateIpAddresses < Certman::Repository[:certificate_ip_addresses]
+    class CertificateIpAddresses < Certbin::Repository[:certificate_ip_addresses]
       commands :create, delete: :by_pk
     end
   end

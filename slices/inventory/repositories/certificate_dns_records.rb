@@ -2,7 +2,7 @@
 
 module Inventory
   module Repositories
-    class CertificateDnsRecords < Certman::Repository[:certificate_dns_records]
+    class CertificateDnsRecords < Certbin::Repository[:certificate_dns_records]
       commands :create, delete: :by_pk
     end
   end

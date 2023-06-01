@@ -48,14 +48,14 @@ ROM::SQL.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index %i[owner environment status], name: 'certman_certs_owner_env_status'
-      index %i[environment status], name: 'certman_certs_env_status'
-      index %i[application environment status], name: 'certman_certs_app_env_status'
+      index %i[owner environment status], name: 'certbin_certs_owner_env_status'
+      index %i[environment status], name: 'certbin_certs_env_status'
+      index %i[application environment status], name: 'certbin_certs_app_env_status'
       index :common_name
       index :host
       index :serial_number
       index :status
-      index %i[expires_on status environment], name: 'certman_certs_exp_on_status_env'
+      index %i[expires_on status environment], name: 'certbin_certs_exp_on_status_env'
     end
   end
 end

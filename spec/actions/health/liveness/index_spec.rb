@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Certman::Actions::Health::Liveness::Index do
+RSpec.describe Certbin::Actions::Health::Liveness::Index do
   let(:params) { {} }
 
   it 'probes liveness' do

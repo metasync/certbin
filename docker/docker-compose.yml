@@ -1,13 +1,13 @@
 version: "3.6"
 
 services:
-  certman:
-    image: quay.io/chimanlei/certman:${CERTMAN_VERSION}
+  certbin:
+    image: quay.io/chimanlei/certbin:${CERTBIN_VERSION}
     ports:
       - 8080:8080
     depends_on:
-      - certmandb
-      # - certmandb.test
+      - certbindb
+      # - certbindb.test
     env_file:
       - common.env
       - ${DB_ADAPTER}/database.env

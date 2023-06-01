@@ -1,10 +1,10 @@
 openapi: 3.0.3
 servers:
   - url: http://127.0.0.1:8080
-    description: CertMan JSON Api Services (development)
+    description: Certbin JSON Api Services (development)
 info:
-  title: CertMan OpenAPI
-  description: CertMan JSON Api specifications
+  title: Certbin OpenAPI
+  description: Certbin JSON Api specifications
   version: 0.1.1
   contact:
     name: Chi Man Lei

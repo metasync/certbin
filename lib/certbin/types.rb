@@ -2,7 +2,7 @@
 
 require 'dry/types'
 
-module Certman
+module Certbin
   Types = Dry.Types
 
   module Types

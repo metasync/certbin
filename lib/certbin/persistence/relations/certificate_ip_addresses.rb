@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Certman
+module Certbin
   module Persistence
     module Relations
       class CertificateIpAddresses < ROM::Relation[:sql]

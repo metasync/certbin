@@ -1,6 +1,6 @@
-# Certman
+# Certbin
 
-Certman is a JSON API service to manage SSL certificate inventory.
+Certbin is a JSON API service to manage SSL certificate inventory.
 
 There are three major categories of APIs:
 
@@ -24,7 +24,7 @@ ATTN: all APIs are in JSON format so please ensure the content type in HTTP head
 
 ## View API specifications online (recommended)
 
-You can view API spec online by uploading [certman_spc.yml](/document/openapi_spec/certman_openapi.yml) to online Swagger Editor:
+You can view API spec online by uploading [certbin_spc.yml](/document/openapi_spec/certbin_openapi.yaml) to online Swagger Editor:
 
 https://editor.swagger.io
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module Certman
+module Certbin
   module Actions
     module Health
       module Liveness
-        class Index < Certman::Action
+        class Index < Certbin::Action
           def handle(*, response)
             response.body = { status: 'ok' }.to_json
           end

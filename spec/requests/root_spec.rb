@@ -6,6 +6,6 @@ RSpec.describe 'Root', type: :request do
 
     # Find me in `config/routes.rb`
     expect(last_response).to be_successful
-    expect(last_response.body).to eq("Weclome to Certman version #{Certman::App::VERSION}")
+    expect(last_response.body).to eq("Weclome to Certbin version #{Certbin::App::VERSION}")
   end
 end

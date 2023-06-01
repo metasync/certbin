@@ -2,7 +2,7 @@
 
 require 'rom-repository'
 
-module Certman
+module Certbin
   class Repository < ROM::Repository::Root
     include Deps[container: 'persistence.rom']
   end

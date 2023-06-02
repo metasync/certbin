@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  certbin:
+    # For production only
+    image: quay.io/metasync/certops-certbin:0.2.1
+    depends_on:
+      - certbindb
+    command: [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
+    # entrypoint: /bin/sh
+    # stdin_open: true
+    # tty: true

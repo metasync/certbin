@@ -2,15 +2,12 @@ version: "3.6"
 
 services:
   certbin:
-    # For development only
+    # For test only
     image: quay.io/metasync/ruby:3.2.2-alpine3.18
-    depends_on:
-      - certbindb
-      # - certbindb.test
     volumes:
       - ../:/home/app
       - ../vendor/bundle:/usr/local/bundle
-    command: [ "hanami", "server" ]
+    entrypoint: /home/app/scripts/run-spec.sh
     # entrypoint: /bin/sh
     # stdin_open: true
     # tty: true

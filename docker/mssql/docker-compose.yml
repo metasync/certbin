@@ -6,7 +6,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-CU3-ubuntu-20.04
     environment: 
       ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: mssql-certbin
+      MSSQL_SA_PASSWORD: ""
       MSSQL_DATABASE: certbin
     working_dir: /home/app
     volumes:
@@ -17,7 +17,7 @@ services:
   #   image: mcr.microsoft.com/mssql/server:2022-CU3-ubuntu-20.04
   #   environment: 
   #     ACCEPT_EULA: Y
-  #     MSSQL_SA_PASSWORD: mssql.certbin0
+  #     MSSQL_SA_PASSWORD: ""
   #     MSSQL_DATABASE: certbin
   #   working_dir: /home/app
   #   volumes:

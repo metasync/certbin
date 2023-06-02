@@ -2,17 +2,8 @@ version: "3.6"
 
 services:
   certbin:
-    image: quay.io/metasync/certops-certbin:${CERTBIN_VERSION}
     ports:
       - 8080:8080
-    depends_on:
-      - certbindb
-      # - certbindb.test
     env_file:
       - common.env
       - ${DB_ADAPTER}/database.env
-    command: [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
-    # entrypoint: /bin/sh
-    # stdin_open: true
-    # tty: true
-

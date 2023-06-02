@@ -6,6 +6,7 @@
     * use VARCHAR(MAX) for SQL Server
     * use TEXT for other databases
   * Fixed typo in docker compose config for mssql
+  * Updated bundle config in Dockerfile instead of deprecated cli option "--without"
 
 ## [0.2.1] - 2023-06-02
 

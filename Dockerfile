@@ -17,8 +17,12 @@ WORKDIR ${APP_HOME}
 
 COPY . .
 
-RUN bundle config set without "development test" \
-    && bundle install --jobs=3 --retry=3
+RUN bundle install --jobs=3 --retry=3 --without "development test"
+
+FROM dependencies AS test-runner
+
+RUN bundle install --jobs=3 --retry=3 --without "" \
+    && ${APP_HOME}/scripts/run-spec.sh  | tee ${APP_HOME}/scripts/run-spec.result
 
 FROM base
 
@@ -61,6 +65,7 @@ ENV HISTFILE=${APP_HOME}/.bash_history
 
 COPY --from=dependencies ${APP_HOME} ${APP_HOME}
 COPY --from=dependencies /usr/local/bundle/ /usr/local/bundle/
+COPY --from=test-runner ${APP_HOME}/scripts/run-spec.result ${APP_HOME}/scripts/run-spec.result
 
 RUN apk add --no-cache gcompat curl \
         freetds-dev mariadb-dev libpq-dev \

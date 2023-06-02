@@ -18,6 +18,7 @@ gem 'pg', '~> 1.4'
 
 group :development, :test do
   gem 'dotenv'
+  gem 'amalgalite', '~> 1.6', '>= 1.6.3'
 end
 
 group :cli, :development do

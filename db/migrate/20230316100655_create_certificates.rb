@@ -31,7 +31,14 @@ ROM::SQL.migration do
       DateTime :issued_on
       DateTime :expires_on
       String :issuer
-      String :certificate_content, text: true
+      
+      if ENV["DB_ADAPTER"] == "tinytds"
+        # Use VARCHAR(MAX) for SQL Server
+        String :certificate_content, size: :max
+      else
+        # Use TEXT for other databases
+        String :certificate_content, text: true
+      end
 
       DateTime :requested_at, null: false
       DateTime :cancelled_at

@@ -1,5 +1,12 @@
 # Change log
 
+## [0.2.2] - 2023-06-02
+
+  * Changed column #certificates.certificate_content to
+    * use VARCHAR(MAX) for SQL Server
+    * use TEXT for other databases
+  * Fixed typo in docker compose config for mssql
+
 ## [0.2.1] - 2023-06-02
 
   * Added test-runner stage in Dockerfile

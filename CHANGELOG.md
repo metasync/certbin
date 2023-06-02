@@ -1,5 +1,15 @@
 # Change log
 
+## [0.2.1] - 2023-06-02
+
+  * Added test-runner stage in Dockerfile
+  * Added amalgalite as sqlite driver for test-runner in image build
+  * Upgraded base image to Ruby 3.2.2 on Alpine 3.18
+  * Separated database user and password from database url to avoid messing up the database url with special characters
+  * Added test spec runner script, run-spec, to facilitate test-runner stage in image build
+  * Refactored docker-compose configuration
+  
+
 ## [0.2.0] - 2023-06-01
 
   * Renamed certman to certbin

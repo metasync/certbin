@@ -3,6 +3,8 @@
 module Certbin
   class Settings < Hanami::Settings
     setting :database_url, constructor: Types::String
+    setting :db_user, constructor: Types::String
+    setting :db_password, constructor: Types::String
     setting :environments, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }
     setting :organization, constructor: Types::String
     setting :locality, constructor: Types::String

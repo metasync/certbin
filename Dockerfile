@@ -17,11 +17,13 @@ WORKDIR ${APP_HOME}
 
 COPY . .
 
-RUN bundle install --jobs=3 --retry=3 --without "development test"
+RUN bundle config set without "development test" \
+    && bundle install --jobs=3 --retry=3
 
 FROM dependencies AS test-runner
 
-RUN bundle install --jobs=3 --retry=3 --without "" \
+RUN bundle config set without "" \
+    && bundle install --jobs=3 --retry=3 \
     && ${APP_HOME}/scripts/run-spec.sh  | tee ${APP_HOME}/scripts/run-spec.result
 
 FROM base

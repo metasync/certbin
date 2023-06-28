@@ -13,11 +13,15 @@ build.certbin:
 		--build-arg image_tag=$(IMAGE_TAG) \
 		--build-arg base_image_repo=$(BASE_IMAGE_REPO) \
 		--build-arg base_image_tag=$(BASE_IMAGE_TAG) \
+		--build-arg base_image_digest=$(BASE_IMAGE_DIGEST) \
 		--build-arg ruby_version=${RUBY_VERSION} \
-		--build-arg alpine_version=${ALPINE_VERSION}
+		--build-arg alpine_version=${ALPINE_VERSION} \
+		--build-arg release_tag=$(RELEASE_TAG) \
+		--build-arg build_number=$(BUILD_NUMBER) \
+		&& ${CONTAINER_CLI} image tag $(IMAGE_NAME) $(IMAGE_REGISTRY_NAME)
 		
 push:
-	${CONTAINER_CLI} push $(IMAGE_NAME)
+	${CONTAINER_CLI} push $(IMAGE_REGISTRY_NAME)
 
 up:
 	@cd docker && ${CONTAINER_CLI} compose up -d

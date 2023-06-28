@@ -1,7 +1,8 @@
 
-ARG base_image_repo=docker.io/ruby
+ARG base_image_repo=ruby
 ARG base_image_tag
-FROM ${base_image_repo}:${base_image_tag} AS base
+ARG base_image_digest
+FROM ${base_image_repo}:${base_image_tag}@${base_image_digest} AS base
 
 ENV APP_HOME=/home/app
 
@@ -32,6 +33,8 @@ ARG project
 ARG app
 ARG version
 ARG revision
+ARG release_tag=rel
+ARG build_number=0
 ARG source
 ARG build_context
 ARG dockerfile
@@ -39,6 +42,7 @@ ARG image_repo
 ARG image_tag
 ARG base_image_repo
 ARG base_image_tag
+ARG base_image_digest
 
 ARG ruby_version
 ARG alpine_version
@@ -47,6 +51,8 @@ LABEL project=${project} \
     app=${app} \
     version=${version} \
     revision=${revision} \
+    release_tag=${release_tag} \
+    build_number=${build_number} \
     source=${source} \
     build_context=${build_context} \
     dockerfile=${dockerfile} \
@@ -59,6 +65,7 @@ LABEL project=${project} \
     base_image_repo=${base_image_repo} \
     base_image_tag=${base_image_tag} \
     base_image_name=${base_image_repo}:${base_image_tag} \
+    base_image_digest=${base_image_digest} \
     \
     ruby_version=${ruby_version} \
     alpine_version=${alpine_version}

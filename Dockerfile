@@ -47,28 +47,28 @@ ARG base_image_digest
 ARG ruby_version
 ARG alpine_version
 
-LABEL project=${project} \
-    app=${app} \
-    version=${version} \
-    revision=${revision} \
-    release_tag=${release_tag} \
-    build_number=${build_number} \
-    source=${source} \
-    build_context=${build_context} \
-    dockerfile=${dockerfile} \
-    vendor="Metasync" \
+LABEL tekton-ci.project=${project} \
+    tekton-ci.app=${app} \
+    tekton-ci.version=${version} \
+    tekton-ci.revision=${revision} \
+    tekton-ci.release_tag=${release_tag} \
+    tekton-ci.build_number=${build_number} \
+    tekton-ci.source=${source} \
+    tekton-ci.build_context=${build_context} \
+    tekton-ci.dockerfile=${dockerfile} \
+    tekton-ci.maintainer="Metasync" \
     \
-    image_repo=${image_repo} \
-    image_tag=${image_tag} \
-    image_name=${image_repo}:${image_tag} \
+    tekton-ci.image_repo=${image_repo} \
+    tekton-ci.image_tag=${image_tag} \
+    tekton-ci.image_name=${image_repo}:${image_tag} \
     \
-    base_image_repo=${base_image_repo} \
-    base_image_tag=${base_image_tag} \
-    base_image_name=${base_image_repo}:${base_image_tag} \
-    base_image_digest=${base_image_digest} \
+    tekton-ci.base_image_repo=${base_image_repo} \
+    tekton-ci.base_image_tag=${base_image_tag} \
+    tekton-ci.base_image_name=${base_image_repo}:${base_image_tag} \
+    tekton-ci.base_image_digest=${base_image_digest} \
     \
-    ruby_version=${ruby_version} \
-    alpine_version=${alpine_version}
+    tekton-ci.ruby_version=${ruby_version} \
+    tekton-ci.alpine_version=${alpine_version}
 
 ENV HISTFILE=${APP_HOME}/.bash_history
 

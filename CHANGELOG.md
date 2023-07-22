@@ -1,5 +1,12 @@
 # Change log
 
+## [0.2.3] - 2023-07-22
+
+  * Added namespace "tekton-ci" to image labels in Dockerfile
+  * Used file volume instead of named volume to solve permission issue when mssql run as non-root user by default
+  * Checked certificate request template for new certificate
+  * Handled invalid cert request template when showing cert request
+
 ## [0.2.2] - 2023-06-02
 
   * Changed column #certificates.certificate_content to
@@ -17,7 +24,6 @@
   * Added test spec runner script, run-spec, to facilitate test-runner stage in image build
   * Refactored docker-compose configuration
   
-
 ## [0.2.0] - 2023-06-01
 
   * Renamed certman to certbin

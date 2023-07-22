@@ -2,15 +2,16 @@ version: "3.6"
 
 services:
   certbindb:
-    image: mcr.microsoft.com/mssql/server:2019-CU19-ubuntu-20.04
-    # image: mcr.microsoft.com/mssql/server:2022-CU3-ubuntu-20.04
+    image: mcr.microsoft.com/mssql/server:2019-CU21-ubuntu-20.04
+    # image: mcr.microsoft.com/mssql/server:2022-CU6-ubuntu-20.04
     environment: 
       ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: ""
+      MSSQL_SA_PASSWORD: mssql-s@321
       MSSQL_DATABASE: certbin
     working_dir: /home/app
     volumes:
-      - dev_certbindb_mssql:/var/opt/mssql
+      # - dev_certbindb_mssql:/var/opt/mssql
+      - ./data/dev_certbindb_mssql:/var/opt/mssql
       - ../scripts:/home/app
   # certbindb.test:
   #   # image: mcr.microsoft.com/mssql/server:2019-CU19-ubuntu-20.04
@@ -21,9 +22,5 @@ services:
   #     MSSQL_DATABASE: certbin
   #   working_dir: /home/app
   #   volumes:
-  #     - test_certbindb_mssql:/var/opt/mssql
+  #     - ./data/test_certbindb_mssql:/var/opt/mssql
   #     - ./scripts:/home/app
-
-volumes:
-  dev_certbindb_mssql:
-  # test_certbindb_mssql:

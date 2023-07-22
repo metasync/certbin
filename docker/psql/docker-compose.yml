@@ -2,22 +2,20 @@ version: "3.6"
 
 services:
   certbindb:
-    image: postgres:15.2-alpine
+    image: postgres:15.3-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: certbin
     volumes:
-      - dev_certbindb_psql:/var/lib/postgresql/data
+      # - dev_certbindb_psql:/var/lib/postgresql/data
+      - ./data/dev_certbindb_psql:/var/lib/postgresql/data
   # certbindb.test:
-  #   image: postgres:15.2-alpine
+  #   image: postgres:15.3-alpine
   #   environment:
   #     POSTGRES_USER: postgres
   #     POSTGRES_PASSWORD: postgres
   #     POSTGRES_DB: certbin
   #   volumes:
-  #     - test_certbindb_psql:/var/lib/postgresql/data
+  #     - ./data/test_certbindb_psql:/var/lib/postgresql/data
 
-volumes:
-  dev_certbindb_psql:
-  # test_certbindb_psql:

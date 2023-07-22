@@ -24,4 +24,17 @@ RSpec.describe 'GET /issuer/certificates/:id/cert_request', type: :request do
       expect(result['error']).to eq('Certificate is NOT found.')
     end
   end
+
+  context 'when given a certificate with invalid cert template to show certificate request' do
+    it 'return error invalid certificate request template' do
+      cert_repo.update(id, template: 'web_server')
+      
+      get "/issuer/certificates/#{id}/cert_request"
+
+      expect(last_response).to be_unprocessable
+
+      result = JSON.parse(last_response.body)
+      expect(result['error']).to match('Certificate request template is INVALID')
+    end
+  end
 end

@@ -6,6 +6,7 @@ module Certbin
     setting :db_user, constructor: Types::String
     setting :db_password, constructor: Types::String
     setting :environments, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }
+    setting :cert_templates, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }
     setting :organization, constructor: Types::String
     setting :locality, constructor: Types::String
     setting :state_or_province, constructor: Types::String

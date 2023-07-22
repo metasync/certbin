@@ -15,7 +15,7 @@ module Requester
             required(:environment).filled(:string, included_in?: Hanami.app[:settings].environments)
             required(:application).filled(:string)
 
-            required(:template).filled(:string)
+            required(:template).filled(:string, included_in?: Hanami.app[:settings].cert_templates)
             required(:key_size).filled(:integer)
             required(:common_name).filled(:string)
             required(:dns_records).array(:string)

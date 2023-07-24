@@ -395,10 +395,10 @@ paths:
               properties:
                 certificate_pfx:
                   type: string
-                  description: Certificate in pfx format
+                  description: Certificate in pfx format (base64 encoded)
                 certificate_crt:
                   type: string
-                  description: Certificate in crt format
+                  description: Certificate in crt format (base64 encoded)
       operationId: issue_certificate
       tags: ["issuer"]
       responses:

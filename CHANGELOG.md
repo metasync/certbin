@@ -1,5 +1,10 @@
 # Change log
 
+## [0.2.4] - 2023-07-24
+
+  * Added check for database liveness
+  * Updated bundled gems
+
 ## [0.2.3] - 2023-07-22
 
   * Added namespace "tekton-ci" to image labels in Dockerfile

@@ -14,4 +14,20 @@ RSpec.describe 'GET /health/liveness', type: :request do
       { 'status' => 'ok' }
     )
   end
+
+  it 'is failed when db connection is lost' do
+    expect_any_instance_of(Certbin::Operations::CheckDatabaseConnection).to(
+      receive(:call).and_return(false)
+    )
+
+    get '/health/liveness'
+
+    expect(last_response.status).to eq(503) # service unavailable
+    expect(last_response.content_type).to eq('application/json; charset=utf-8')
+
+    response_body = JSON.parse(last_response.body)
+    expect(response_body).to eq(
+      { 'database' => 'Connection is lost.' }
+    )
+  end
 end

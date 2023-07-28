@@ -3,7 +3,7 @@
 module Certbin
   module Operations
     class CheckDatabaseConnection
-      include Deps["settings"]
+      include Deps['settings']
 
       def call = valid_connection?
 

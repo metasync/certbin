@@ -31,8 +31,8 @@ ROM::SQL.migration do
       DateTime :issued_on
       DateTime :expires_on
       String :issuer
-      
-      if ENV["DB_ADAPTER"] == "tinytds"
+
+      if ENV['DB_ADAPTER'] == 'tinytds'
         # Use VARCHAR(MAX) for SQL Server
         String :certificate_content, size: :max
       else

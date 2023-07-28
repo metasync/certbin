@@ -3,10 +3,6 @@
 require 'base64'
 
 RSpec.describe 'GET /issuer/certificates/:id/cert_content', type: :request do
-  let(:request_headers) do
-    { 'HTTP_ACCEPT' => 'application/json', 'CONTENT_TYPE' => 'application/json' }
-  end
-
   context 'when given a certificate to show certificate content' do
     let(:certificate_pfx) do
       Base64.encode64(
@@ -31,7 +27,7 @@ RSpec.describe 'GET /issuer/certificates/:id/cert_content', type: :request do
       put "/issuer/certificates/#{id}/issue", params.to_json, request_headers
       expect(last_response).to be_successful
 
-      get "/issuer/certificates/#{id}/cert_content"
+      get "/issuer/certificates/#{id}/cert_content", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -45,7 +41,7 @@ RSpec.describe 'GET /issuer/certificates/:id/cert_content', type: :request do
 
   context 'when given a non-existent id to show certificate request' do
     it 'return error certificate not found' do
-      get "/issuer/certificates/#{nonexistent_id}/cert_request"
+      get "/issuer/certificates/#{nonexistent_id}/cert_request", {}.to_json, request_headers
 
       expect(last_response).to be_not_found
 

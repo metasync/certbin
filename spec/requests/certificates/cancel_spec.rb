@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe 'PUT /certificates/:id/cacnel', type: %i[request database] do
-  let(:request_headers) do
-    { 'HTTP_ACCEPT' => 'application/json', 'CONTENT_TYPE' => 'application/json' }
-  end
-
   context 'when given valid params' do
     it 'cancels a certificate' do
       put "/certificates/#{id}/cancel", {}.to_json, request_headers

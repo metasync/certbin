@@ -7,6 +7,8 @@ services:
     volumes:
       - ../:/home/app
       - ../vendor/bundle:/usr/local/bundle
+    environment:
+      - HANAMI_ENV=test
     entrypoint: /home/app/scripts/run-spec.sh
     # entrypoint: /bin/sh
     # stdin_open: true

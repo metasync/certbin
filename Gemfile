@@ -16,6 +16,9 @@ gem 'rom-sql', '~> 3.6'
 gem 'tiny_tds', '~> 2.1'
 gem 'pg', '~> 1.4'
 
+gem 'jwt', '~> 2.7'
+gem 'dry-monads', '~> 1.6'
+
 group :development, :test do
   gem 'dotenv'
   gem 'amalgalite', '~> 1.6', '>= 1.6.3'

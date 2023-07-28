@@ -6,8 +6,11 @@ require 'rom'
 
 module Certbin
   class Action < Hanami::Action
+    include Deps['operations.authorize_access']
+
     handle_exception ROM::TupleCountMismatchError => :handle_record_not_found
 
+    before :authorize
     before :validate_params
 
     def handle(request, response)
@@ -19,7 +22,18 @@ module Certbin
       end
     end
 
+    def authorization_required? = true
+
     protected
+
+    def authorize(request, _response)
+      return unless authorization_required?
+
+      auth = authorize_access.call(request)
+      return unless auth.failure?
+
+      halt :unauthorized, { error: auth.failure }.to_json
+    end
 
     def validate_params(request, _response)
       return if request.params.valid?

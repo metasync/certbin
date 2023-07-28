@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe 'POST /certificates', type: %i[request database] do
-  let(:request_headers) do
-    { 'HTTP_ACCEPT' => 'application/json', 'CONTENT_TYPE' => 'application/json' }
-  end
-
   let(:params) do
     {
       certificate: {
@@ -64,7 +60,6 @@ RSpec.describe 'POST /certificates', type: %i[request database] do
         p[:certificate][:template] = 'undefined_template'
       end
       post '/certificates', invalid_params.to_json, request_headers
-
 
       expect(last_response).to be_unprocessable
       # errors = JSON.parse(last_response.body)

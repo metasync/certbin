@@ -5,8 +5,8 @@ Hanami.app.register_provider :persistence, namespace: true do
     require 'rom'
 
     config = ROM::Configuration.new(
-      :sql, target['settings'].database_url, 
-      username: target['settings'].db_user, 
+      :sql, target['settings'].database_url,
+      username: target['settings'].db_user,
       password: target['settings'].db_password
     )
 

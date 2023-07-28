@@ -6,6 +6,20 @@ RSpec.shared_context 'with Hanami app' do
   let(:app) { Hanami.app }
 end
 
+RSpec.shared_context 'with auth token' do
+  let(:authorization_token) { test_auth_token }
+end
+
+RSpec.shared_context 'with auth header' do
+  let(:request_headers) do
+    {
+      'HTTP_ACCEPT' => 'application/json',
+      'CONTENT_TYPE' => 'application/json',
+      'HTTP_AUTHORIZATION' => "Bearer #{authorization_token[:value]}"
+    }
+  end
+end
+
 RSpec.shared_context 'with sample certificate' do
   let(:cert_repo) { Inventory::Slice['repositories.certificates'] }
 
@@ -74,5 +88,7 @@ end
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
   config.include_context 'with Hanami app', type: :request
+  config.include_context 'with auth token', type: :request
+  config.include_context 'with auth header', type: :request
   config.include_context 'with sample certificate', type: :request
 end

@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe 'PUT /deployer/certificates/:id/retire', type: %i[request database] do
-  let(:request_headers) do
-    { 'HTTP_ACCEPT' => 'application/json', 'CONTENT_TYPE' => 'application/json' }
-  end
-
   context 'when given valid params' do
     it 'retires a certificate' do
       cert_repo.update(id,

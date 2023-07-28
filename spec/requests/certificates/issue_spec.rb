@@ -4,10 +4,6 @@ require 'base64'
 require 'pathname'
 
 RSpec.describe 'PUT /issuer/certificates/:id/issue', type: %i[request database] do
-  let(:request_headers) do
-    { 'HTTP_ACCEPT' => 'application/json', 'CONTENT_TYPE' => 'application/json' }
-  end
-
   context 'when given valid params' do
     let(:certificate_pfx) do
       Base64.encode64(

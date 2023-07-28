@@ -10,7 +10,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when given a common name to find certificates' do
     it 'returns certificates with the given common name' do
-      get "/certificates/common_name/#{common_name}"
+      get "/certificates/common_name/#{common_name}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -24,7 +24,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when givne an ip address to find certificates by' do
     it 'returns certificates with the given ip address' do
-      get "/certificates/ip_address/#{ip_address}"
+      get "/certificates/ip_address/#{ip_address}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -40,7 +40,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when given a dns record to find certificates' do
     it 'returns certificates with the given dns record' do
-      get "/certificates/dns_record/#{dns_record}"
+      get "/certificates/dns_record/#{dns_record}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -56,7 +56,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when givne a status to find certificates' do
     it 'returns certificates with the given status' do
-      get "/certificates/status/#{status}"
+      get "/certificates/status/#{status}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -70,7 +70,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when given a host to find certificates' do
     it 'returns certificates with the given host' do
-      get "/certificates/host/#{host}"
+      get "/certificates/host/#{host}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -84,7 +84,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when given an id to find certificates' do
     it 'returns certificates with the given id' do
-      get "/certificates/id/#{id}"
+      get "/certificates/id/#{id}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -93,7 +93,7 @@ RSpec.describe 'GET /certificates', type: :request do
     end
 
     it 'returns 422 unprocessable' do
-      get '/certificates/id/abc'
+      get '/certificates/id/abc', {}.to_json, request_headers
 
       expect(last_response).to be_unprocessable
       result = JSON.parse(last_response.body)
@@ -103,7 +103,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when given a non-existent id to find certificates' do
     it 'returns 404 not found' do
-      get "/certificates/id/#{nonexistent_id}"
+      get "/certificates/id/#{nonexistent_id}", {}.to_json, request_headers
 
       expect(last_response).to be_not_found
 
@@ -112,7 +112,7 @@ RSpec.describe 'GET /certificates', type: :request do
     end
 
     it 'returns 422 unprocessable' do
-      get '/certificates/id/abc'
+      get '/certificates/id/abc', {}.to_json, request_headers
 
       expect(last_response).to be_unprocessable
     end
@@ -123,8 +123,7 @@ RSpec.describe 'GET /certificates', type: :request do
       cert_repo.update(id,
                        status: 'expired',
                        expired_at: Time.now - ((app.settings.days_before_retirement + 1) * 24 * 60 * 60))
-
-      get '/certificates/retirable'
+      get '/certificates/retirable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -144,7 +143,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'revoked',
                        revoked_at: Time.now)
 
-      get '/certificates/withdrawable'
+      get '/certificates/withdrawable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -162,7 +161,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'deployed',
                        expires_on: Time.now - (60 * 60))
 
-      get '/certificates/expirable'
+      get '/certificates/expirable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -179,7 +178,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'issued',
                        expires_on: Time.now - (60 * 60))
 
-      get '/certificates/expirable'
+      get '/certificates/expirable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -198,7 +197,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'deployed',
                        expires_on: Time.now + (12 * 60 * 60))
 
-      get "/certificates/expires_in/#{days_before_expire}"
+      get "/certificates/expires_in/#{days_before_expire}", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -214,7 +213,7 @@ RSpec.describe 'GET /certificates', type: :request do
 
   context 'when requested to find requested certificates' do
     it 'returns requested certificates' do
-      get '/certificates/requested'
+      get '/certificates/requested', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -232,7 +231,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'issued',
                        issued_at: Time.now)
 
-      get '/certificates/issued'
+      get '/certificates/issued', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -250,7 +249,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'deployed',
                        deployed_at: Time.now)
 
-      get '/certificates/deployed'
+      get '/certificates/deployed', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -267,7 +266,7 @@ RSpec.describe 'GET /certificates', type: :request do
       cert_repo.update(id,
                        status: 'renewing')
 
-      get '/certificates/renewing'
+      get '/certificates/renewing', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -284,7 +283,7 @@ RSpec.describe 'GET /certificates', type: :request do
       cert_repo.update(id,
                        status: 'revoking')
 
-      get '/certificates/revoking'
+      get '/certificates/revoking', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -302,7 +301,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'revoked',
                        revoked_at: Time.now)
 
-      get '/certificates/revoked'
+      get '/certificates/revoked', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -321,7 +320,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        expired_at: nil,
                        expires_on: Time.now + (24 * 60 * 60))
 
-      get '/certificates/renewable'
+      get '/certificates/renewable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -339,7 +338,7 @@ RSpec.describe 'GET /certificates', type: :request do
                        status: 'expired',
                        expired_at: Time.now - (24 * 60 * 60))
 
-      get '/certificates/renewable'
+      get '/certificates/renewable', {}.to_json, request_headers
 
       expect(last_response).to be_successful
 

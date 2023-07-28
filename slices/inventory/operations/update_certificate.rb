@@ -3,10 +3,10 @@
 module Inventory
   module Operations
     class UpdateCertificate < Base
-      def call(id, **opts)
+      def call(id, **)
         certificate = find_certificate(id)
         if updatable?(certificate)
-          update_certificate(certificate, **opts)
+          update_certificate(certificate, **)
         else
           render_error(certificate)
         end
@@ -20,11 +20,11 @@ module Inventory
         raise NotImplementedError, "#{self.class.name}##{__method__} is an abstract method."
       end
 
-      def update_certificate(certificate, **opts) = {
+      def update_certificate(certificate, **) = {
         certificate: certificates.update(
           certificate.id,
           updated_at: Time.now,
-          **certificate_updates(certificate, **opts)
+          **certificate_updates(certificate, **)
         )
       }
 

@@ -3,7 +3,7 @@
 RSpec.describe 'GET /issuer/certificates/:id/cert_request', type: :request do
   context 'when given a certificate to show certificate request' do
     it 'return certificate request' do
-      get "/issuer/certificates/#{id}/cert_request"
+      get "/issuer/certificates/#{id}/cert_request", {}.to_json, request_headers
 
       expect(last_response).to be_successful
 
@@ -16,7 +16,7 @@ RSpec.describe 'GET /issuer/certificates/:id/cert_request', type: :request do
 
   context 'when given a non-existent id to show certificate request' do
     it 'return error certificate not found' do
-      get "/issuer/certificates/#{nonexistent_id}/cert_request"
+      get "/issuer/certificates/#{nonexistent_id}/cert_request", {}.to_json, request_headers
 
       expect(last_response).to be_not_found
 
@@ -28,8 +28,8 @@ RSpec.describe 'GET /issuer/certificates/:id/cert_request', type: :request do
   context 'when given a certificate with invalid cert template to show certificate request' do
     it 'return error invalid certificate request template' do
       cert_repo.update(id, template: 'web_server')
-      
-      get "/issuer/certificates/#{id}/cert_request"
+
+      get "/issuer/certificates/#{id}/cert_request", {}.to_json, request_headers
 
       expect(last_response).to be_unprocessable
 

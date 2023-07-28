@@ -16,7 +16,7 @@ RSpec.describe 'GET /health/liveness', type: :request do
   end
 
   it 'is failed when db connection is lost' do
-    expect_any_instance_of(Certbin::Operations::CheckDatabaseConnection).to(
+    allow_any_instance_of(Certbin::Operations::CheckDatabaseConnection).to(
       receive(:call).and_return(false)
     )
 

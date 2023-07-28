@@ -6,6 +6,8 @@ services:
     image: quay.io/metasync/certops-certbin:0.2.1
     depends_on:
       - certbindb
+    environment:
+      - HANAMI_ENV=production
     command: [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
     # entrypoint: /bin/sh
     # stdin_open: true

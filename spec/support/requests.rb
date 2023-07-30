@@ -86,6 +86,7 @@ RSpec.shared_context 'with sample certificate' do
 end
 
 RSpec.configure do |config|
+  Hanami.boot
   config.include Rack::Test::Methods, type: :request
   config.include_context 'with Hanami app', type: :request
   config.include_context 'with auth token', type: :request

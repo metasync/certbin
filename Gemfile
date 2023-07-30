@@ -18,6 +18,7 @@ gem 'pg', '~> 1.4'
 
 gem 'jwt', '~> 2.7'
 gem 'dry-monads', '~> 1.6'
+gem 'dry-effects', '~> 0.4'
 
 group :development, :test do
   gem 'dotenv'

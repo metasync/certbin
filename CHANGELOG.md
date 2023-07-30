@@ -1,5 +1,9 @@
 # Change log
 
+## [0.2.6] - 2023-07-30
+
+  * Refactored request authorization into Rack middleware
+
 ## [0.2.5] - 2023-07-28
 
   * Supported API authorization with RS256 JWT

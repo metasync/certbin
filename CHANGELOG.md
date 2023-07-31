@@ -1,5 +1,14 @@
 # Change log
 
+## [0.2.7] - 2023-07-31
+
+  * Added Warden setting, #authorize_by_default, to control authorization enablement (Default: true)
+  * Updated authorization header description in OpenAPI spec document
+  * Added sample scripts to generate RSA key and RS256 auth token
+  * Updated README
+  * Minor typos fixes
+
+
 ## [0.2.6] - 2023-07-30
 
   * Refactored request authorization into Rack middleware

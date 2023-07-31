@@ -16,6 +16,8 @@ tags:
     description: Issuer operations
   - name: deployer
     description: Deployer operations
+security:
+  - bearerAuth: []
 paths:
   /certificates:
     post:
@@ -590,6 +592,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/error_not_found"
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
   schemas:
     new_certificate:
       type: object

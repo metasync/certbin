@@ -18,5 +18,6 @@ module Certbin
     setting :auth_token_algorithm, default: 'RS256', constructor: Types::String
     setting :auth_token_required_claims, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }
     setting :auth_token_issuers, constructor: ->(v) { Types.Array(Types::String).call(v.split(/,\s*/)) }
+    setting :authorize_by_default, default: true, constructor: Types::Params::Bool
   end
 end

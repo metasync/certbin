@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'GET /health/liveness', type: :request do
+RSpec.describe 'Authorization by token', type: :request do
   context 'when given no authorization header' do
     let(:authorization_token) do
       test_auth_token.tap { |t| t[:value] = nil }
@@ -20,6 +20,13 @@ RSpec.describe 'GET /health/liveness', type: :request do
 
       result = JSON.parse(last_response.body)
       expect(result['error']).to match(/Authorization token is missing/)
+    end
+
+    it 'gives no error if authorize_by_default is set to false' do
+      Certbin::Middleware::Warden.config.authorize_by_default = false
+      get "/certificates/id/#{id}", {}.to_json, request_headers
+      expect(last_response).to be_ok
+      Certbin::Middleware::Warden.config.authorize_by_default = true
     end
   end
 

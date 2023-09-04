@@ -1,5 +1,11 @@
 # Change log
 
+## [0.3.0] - 2023-09-04
+
+  * Revamped certificate renewal with linked certificate support
+  * Supported audit log for certificate operations
+  * Minor enhancements, bug fixes and code clean up
+
 ## [0.2.7] - 2023-07-31
 
   * Added Warden setting, #authorize_by_default, to control authorization enablement (Default: true)
@@ -7,7 +13,6 @@
   * Added sample scripts to generate RSA key and RS256 auth token
   * Updated README
   * Minor typos fixes
-
 
 ## [0.2.6] - 2023-07-30
 

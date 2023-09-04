@@ -53,5 +53,15 @@ module Certbin
       put '/:id/retire', to: 'certificates.retire'
       put '/:id/withdraw', to: 'certificates.withdraw'
     end
+
+    slice :auditor, at: '/auditor/audit_logs' do
+      use Middleware::Warden::Authorization
+
+      get '/certificate/:value', to: 'audit_logs.find_by_certificate_id'
+      get '/first_certificate/:value', to: 'audit_logs.find_by_first_certificate_id'
+      get '/action/:value', to: 'audit_logs.find_by_action'
+      get '/actioned_by/:value', to: 'audit_logs.find_by_actioned_by'
+      get '/action_group/:value', to: 'audit_logs.find_by_action_group'
+    end
   end
 end

@@ -16,6 +16,8 @@ tags:
     description: Issuer operations
   - name: deployer
     description: Deployer operations
+  - name: auditor
+    description: Auditor operations
 security:
   - bearerAuth: []
 paths:
@@ -591,6 +593,99 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error_not_found"
+  /auditor/audit_logs/certificate/{value}:
+    get:
+      operationId: find_by_certificate_id
+      tags: ["auditor"]
+      description: Find audit logs by certfiicate ID
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/audit_logs"
+  /auditor/audit_logs/first_certificate/{value}:
+    get:
+      operationId: find_by_first_certificate_id
+      tags: ["auditor"]
+      description: Find audit logs by the first certfiicate ID
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/audit_logs"
+  /auditor/audit_logs/action/{value}:
+    get:
+      operationId: find_by_action
+      tags: ["auditor"]
+      description: Find audit logs by action
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items to collect in the result set
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/audit_logs"
+  /auditor/audit_logs/actioned_by/{value}:
+    get:
+      operationId: find_by_actioned_by
+      tags: ["auditor"]
+      description: Find audit logs by action user
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items to collect in the result set
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/audit_logs"
+  /auditor/audit_logs/action_group/{value}:
+    get:
+      operationId: find_by_action_group
+      tags: ["auditor"]
+      description: Find audit logs by action group
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The number of items to collect in the result set
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+      responses:
+        "200":
+          description: Request is completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/audit_logs"
 components:
   securitySchemes:
     bearerAuth:
@@ -775,6 +870,15 @@ components:
         remarks:
           type: string
           description: Remarks of the certificate if any
+        first_certificate_id:
+          type: integer
+          description: The first certificate ID in the certificate chain
+        next_certificate_id:
+          type: integer
+          description: The next certificate ID in the certificate chain
+        last_certificate_id:
+          type: integer
+          description: The last certificate ID in the certificate chain
         created_at:
           type: string
           format: date-time
@@ -848,3 +952,38 @@ components:
           type: string
           format: date-time
           description: Updated date of the IP address
+    audit_logs:
+      type: array
+      items: 
+        $ref: "#/components/schemas/audit_log" 
+    audit_log:
+      type: object
+      descriptioin: Certificate audit log
+      properties:
+        id:
+          type: integer
+          description: ID of the audit log
+        certificate_id:
+          type: integer
+          description: Certificate ID the audit log refering to
+        first_certificate_id:
+          type: integer
+          description: First certificate ID in the certificate chain the auditor log referring to
+        changes:
+          type: string
+          description: Changes recorded by audit log (JSON)
+        action:
+          type: string
+          description: Action recorded in audit log
+        actioned_by:
+          type: string
+          description: User who performed the action recorded in audit log
+        action_group:
+          type: string
+          description: User group recorded in audit log
+        actioned_at:
+          type: string
+          description: Action datetime recorded in audit log
+        created_at:
+          type: string
+          description: Creation datetime of the audit log

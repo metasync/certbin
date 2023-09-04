@@ -7,7 +7,7 @@ require 'rom'
 module Certbin
   class Action < Hanami::Action
     include Certbin::Middleware::Warden::Auth
-    
+
     handle_exception ROM::TupleCountMismatchError => :handle_record_not_found
 
     before :validate_params

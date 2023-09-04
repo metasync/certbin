@@ -97,6 +97,9 @@ module Inventory
           end.to_a
       end
 
+      def delete_all =
+        certificates.command(:delete).call
+
       private
 
       def base_query =

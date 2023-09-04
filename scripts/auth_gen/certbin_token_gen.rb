@@ -30,22 +30,23 @@ auth_token = JWT.encode(
   algorithm
 )
 
-puts "Auth token:"
+puts 'Auth token:'
 puts auth_token.inspect
+puts auth_token.size
 
-required_issuers = ['devops', 'syseng']
-required_claims = ['iss', 'iat', 'exp']
+required_issuers = %w[devops syseng]
+required_claims = %w[iss iat exp]
 
 decoded_token = JWT.decode(auth_token, nil, true,
-  {
-    iss: required_issuers,
-    verify_iss: true,
-    verify_iat: true,
-    required_claims: required_claims,
-    algorithm: algorithm
-  }) do |_headers, _payload| 
-    OpenSSL::PKey::RSA.new File.binread(public_key_file) 
-  end
+                           {
+                             iss: required_issuers,
+                             verify_iss: true,
+                             verify_iat: true,
+                             required_claims:,
+                             algorithm:
+                           }) do |_headers, _payload|
+  OpenSSL::PKey::RSA.new File.binread(public_key_file)
+end
 
-puts "Decoded payload:"
+puts 'Decoded payload:'
 puts decoded_token.inspect

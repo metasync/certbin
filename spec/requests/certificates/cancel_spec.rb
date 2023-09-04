@@ -11,6 +11,15 @@ RSpec.describe 'PUT /certificates/:id/cacnel', type: %i[request database] do
       expect(certificate['id']).to eq(id)
       expect(certificate['status']).to eq('cancelled')
       expect(certificate['cancelled_at']).to be <= Time.now.to_s
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('cancel_certificate_request')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('cancelled')
+      expect(changes['cancelled_at']).to eq(certificate['cancelled_at'])
     end
 
     it 'cancels a certificate from a wrong status' do

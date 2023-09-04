@@ -38,7 +38,17 @@ RSpec.describe 'POST /certificates', type: %i[request database] do
       expect(last_response).to be_created
       certificate = JSON.parse(last_response.body)
       # puts JSON.pretty_generate(certificate)
-      cert_repo.delete(certificate['id'])
+      expect(certificate['first_certificate_id']).to eq(certificate['id'])
+
+      audit_log = audit_log_repo.find_by_certificate_id(certificate['id']).first
+      expect(audit_log.certificate_id).to eq(certificate['id'])
+      expect(audit_log.action).to eq('request_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      changes.each_pair do |key, value|
+        expect(value).to eq(certificate[key]) unless %w[dns_records ip_addresses].include?(key)
+      end
     end
   end
 

@@ -31,6 +31,7 @@ RSpec.configure do |config|
 
   config.before do
     @id = cert_repo.create(sample_cert).id
+    cert_repo.update(@id, first_certificate_id: @id)
 
     @auth_token = {
       issuer: 'devops',
@@ -41,7 +42,10 @@ RSpec.configure do |config|
     @auth_token[:payload] = {
       iss: @auth_token[:issuer],
       iat: Time.now.to_i,
-      exp: Time.now.to_i + (@auth_token[:expires_in] * 60)
+      exp: Time.now.to_i + (@auth_token[:expires_in] * 60),
+      data: {
+        user: 'tester'
+      }
     }
     @auth_token[:value] = JWT.encode(
       @auth_token[:payload],
@@ -56,6 +60,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    cert_repo.delete(@id)
+    cert_repo.delete_all
+    audit_log_repo.delete_all
   end
 end

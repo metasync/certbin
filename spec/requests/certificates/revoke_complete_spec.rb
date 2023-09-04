@@ -14,6 +14,15 @@ RSpec.describe 'PUT /issuer/certificates/:id/revoke_complete', type: %i[request 
       expect(certificate['id']).to eq(id)
       expect(certificate['status']).to eq('revoked')
       expect(certificate['revoked_at']).to be <= Time.now.to_s
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('revoke_certificate_complete')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('revoked')
+      expect(changes['revoked_at']).to eq(certificate['revoked_at'])
     end
   end
 

@@ -14,6 +14,14 @@ RSpec.describe 'PUT /issuer/certificates/:id/revoke', type: %i[request database]
       certificate = JSON.parse(last_response.body)
       expect(certificate['id']).to eq(id)
       expect(certificate['status']).to eq('revoking')
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('revoke_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('revoking')
     end
 
     it 'revokes deployed certificate' do
@@ -27,6 +35,14 @@ RSpec.describe 'PUT /issuer/certificates/:id/revoke', type: %i[request database]
 
       certificate = JSON.parse(last_response.body)
       expect(certificate['status']).to eq('revoking')
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('revoke_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('revoking')
     end
 
     it 'revokes a certificate from wrong status' do

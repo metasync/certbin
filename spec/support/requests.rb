@@ -23,6 +23,8 @@ end
 RSpec.shared_context 'with sample certificate' do
   let(:cert_repo) { Inventory::Slice['repositories.certificates'] }
 
+  let(:audit_log_repo) { Inventory::Slice['repositories.certificate_audit_logs'] }
+
   let(:sample_date) { DateTime.parse('2023-03-26') }
 
   let(:sample_cert) do

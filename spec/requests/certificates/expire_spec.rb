@@ -15,6 +15,15 @@ RSpec.describe 'PUT /issuer/certificates/:id/expire', type: %i[request database]
       certificate = JSON.parse(last_response.body)
       expect(certificate['id']).to eq(id)
       expect(certificate['status']).to eq('expired')
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('expire_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('expired')
+      expect(changes['expired_at']).to eq(certificate['expired_at'])
     end
 
     it 'expires a deployed certificate' do
@@ -30,6 +39,15 @@ RSpec.describe 'PUT /issuer/certificates/:id/expire', type: %i[request database]
       certificate = JSON.parse(last_response.body)
       expect(certificate['id']).to eq(id)
       expect(certificate['status']).to eq('expired')
+
+      audit_log = audit_log_repo.find_by_certificate_id(id).first
+      expect(audit_log.certificate_id).to eq(id)
+      expect(audit_log.action).to eq('expire_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('expired')
+      expect(changes['expired_at']).to eq(certificate['expired_at'])
     end
 
     it 'expires a non-expiring certificate' do
@@ -52,7 +70,7 @@ RSpec.describe 'PUT /issuer/certificates/:id/expire', type: %i[request database]
       expect(last_response).to be_unprocessable
 
       result = JSON.parse(last_response.body)
-      expect(result['status'].first).to eq('must be "deployed" or "issued"')
+      expect(result['status'].first).to eq('must be "deployed", "issued" or "renewed"')
     end
   end
 

@@ -24,7 +24,7 @@ RSpec.describe 'PUT /issuer/certificates/:id/issue', type: %i[request database] 
       }
     end
 
-    it 'issues a requested certificate' do
+    it 'issues a requested certificate without any renewing certificates' do
       put "/issuer/certificates/#{id}/issue", params.to_json, request_headers
 
       expect(last_response).to be_ok
@@ -40,19 +40,63 @@ RSpec.describe 'PUT /issuer/certificates/:id/issue', type: %i[request database] 
       )
       expect(certificate['status']).to eq('issued')
       expect(certificate['issued_at']).to be <= Time.now.to_s
+
+      audit_log = audit_log_repo.find_by_certificate_id(certificate['id']).last
+      expect(audit_log.certificate_id).to eq(certificate['id'])
+      expect(audit_log.action).to eq('issue_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('issued')
+      expect(changes['issued_at']).to eq(certificate['issued_at'])
     end
 
-    it 'issues a renewing certificate' do
-      cert_repo.update(id, status: 'renewing')
-      put "/issuer/certificates/#{id}/issue", params.to_json, request_headers
-
+    it 'issues a requested certificate with a renewing certificate' do
+      cert_repo.update(id,
+                       status: 'deployed',
+                       deployed_at: Time.now,
+                       expires_on: Time.now + ((app.settings.days_before_renewal - 1) * 24 * 60 * 60))
+      put "/issuer/certificates/#{id}/renew", {}.to_json, request_headers
       expect(last_response).to be_ok
 
+      last_cert = JSON.parse(last_response.body)
+
+      put "/issuer/certificates/#{last_cert['next_certificate_id']}/issue", params.to_json, request_headers
+      expect(last_response).to be_ok
       certificate = JSON.parse(last_response.body)
-      expect(certificate['id']).to eq(id)
+
+      expect(certificate['id']).to eq(last_cert['next_certificate_id'])
       expect(certificate['certificate_content']).to eq(certificate_pfx)
+      expect(certificate['serial_number']).to eq('1')
+      expect(certificate['issued_on']).to eq('2012-04-27 10:31:18 +0000')
+      expect(certificate['expires_on']).to eq('2022-04-25 10:31:18 +0000')
+      expect(certificate['issuer']).to eq(
+        'emailAddress=contact@freelan.org,CN=Freelan Sample Certificate Authority,OU=freelan,O=www.freelan.org,L=Strasbourg,ST=Alsace,C=FR'
+      )
       expect(certificate['status']).to eq('issued')
-      expect(certificate['renewed_at']).to be <= Time.now.to_s
+      expect(certificate['issued_at']).to be <= Time.now.to_s
+
+      audit_log = audit_log_repo.find_by_certificate_id(certificate['id']).last
+      expect(audit_log.certificate_id).to eq(certificate['id'])
+      expect(audit_log.action).to eq('issue_certificate')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('issued')
+      expect(changes['issued_at']).to eq(certificate['issued_at'])
+
+      last_cert = cert_repo.find(id)
+      expect(last_cert.id).to eq(certificate['last_certificate_id'])
+      expect(last_cert.status).to eq('renewed')
+
+      audit_log = audit_log_repo.find_by_certificate_id(last_cert.id).last
+      expect(audit_log.certificate_id).to eq(last_cert.id)
+      expect(audit_log.action).to eq('renew_certificate_complete')
+      expect(audit_log.actioned_by).to eq(test_auth_token[:payload][:data][:user])
+      expect(audit_log.action_group).to eq(test_auth_token[:payload][:iss])
+      changes = JSON.parse(audit_log.changes)
+      expect(changes['status']).to eq('renewed')
+      expect(changes['renewed_at']).to eq(last_cert.renewed_at.strftime('%Y-%m-%d %T %z'))
     end
 
     it 'issues an nonexistent certificate' do

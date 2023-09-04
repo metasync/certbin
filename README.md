@@ -100,6 +100,9 @@ The following are the environment variables to be configured in the runtime envi
       e.g., ENVIRONMENTS=dev,qa,prd
 
   * Database
+    * DB_ADAPTER
+    * DB_HOST
+    * DB_NAME
     * DB_USER
     * DB_PASSWORD
     * DATABASE_URL
@@ -133,4 +136,4 @@ The following are the environment variables to be configured in the runtime envi
 
   * Support token-based authentication (done)
   * Support database credential encryption
-  * Support certificate history
+  * Support certificate history (done)

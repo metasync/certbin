@@ -6,25 +6,29 @@ require 'openssl'
 module Inventory
   module Operations
     class IssueCertificate < UpdateCertificate
+      include Deps['operations.renew_certificate_complete']
+
       protected
 
-      def updatable?(certificate) =
-        %w[requested renewing].include?(certificate[:status])
-
-      def certificate_updates(certificate, certificate_content:)
-        { status: 'issued' }.merge!(
-          decode_certificate(certificate_content)
-        ).merge!(
-          case certificate.status
-          when 'requested'
-            { issued_at: Time.now }
-          when 'renewing'
-            { renewed_at: Time.now }
-          else
-            {}
-          end
-        )
+      def updatable?(certificate)
+        certificate[:status] == 'requested'
       end
+
+      def before_update_certificate(certificate, context)
+        unless certificate.last_certificate_id.nil?
+          context[:last_cert] =
+            renew_certificate_complete.call(
+              certificate.last_certificate_id
+            )[:certificate]
+        end
+        context
+      end
+
+      def certificate_updates(_certificate, context) =
+        { status: 'issued',
+          issued_at: context[:actioned_at] }.merge!(
+            decode_certificate(context[:certificate_content])
+          )
 
       def decode_certificate(content)
         { certificate_content: content[:pfx] }.merge!(

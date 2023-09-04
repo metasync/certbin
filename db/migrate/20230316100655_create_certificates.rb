@@ -52,6 +52,10 @@ ROM::SQL.migration do
 
       String :remarks
 
+      Bignum :first_certificate_id
+      Bignum :next_certificate_id
+      Bignum :last_certificate_id
+
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -63,6 +67,10 @@ ROM::SQL.migration do
       index :serial_number
       index :status
       index %i[expires_on status environment], name: 'certbin_certs_exp_on_status_env'
+
+      index :first_certificate_id
+      index :next_certificate_id
+      index :last_certificate_id
     end
   end
 end

@@ -9,7 +9,7 @@ module Inventory
         %w[deployed issued].include?(certificate[:status])
       end
 
-      def certificate_updates(_certificate) =
+      def certificate_updates(_certificate, _context) =
         { status: 'revoking' }
 
       def error(_certificate) =

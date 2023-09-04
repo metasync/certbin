@@ -11,9 +11,9 @@ module Inventory
             Time.now - (settings.days_before_retirement * 24 * 60 * 60)
       end
 
-      def certificate_updates(_certificate) = {
+      def certificate_updates(_certificate, context) = {
         status: 'retired',
-        retired_at: Time.now
+        retired_at: context[:actioned_at]
       }
 
       def error(_certificate) =

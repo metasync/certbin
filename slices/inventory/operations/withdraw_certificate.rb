@@ -9,9 +9,9 @@ module Inventory
         certificate[:status] == 'revoked'
       end
 
-      def certificate_updates(_certificate) = {
+      def certificate_updates(_certificate, context) = {
         status: 'withdrawn',
-        withdrawn_at: Time.now
+        withdrawn_at: context[:actioned_at]
       }
 
       def error(_certificate) =

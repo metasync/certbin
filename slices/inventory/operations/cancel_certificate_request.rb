@@ -9,10 +9,10 @@ module Inventory
         certificate[:status] == 'requested'
       end
 
-      def certificate_updates(_certificate) =
+      def certificate_updates(_certificate, context) =
         {
           status: 'cancelled',
-          cancelled_at: Time.now
+          cancelled_at: context[:actioned_at]
         }
 
       def error(_certificate) =

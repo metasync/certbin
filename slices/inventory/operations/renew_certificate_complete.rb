@@ -2,21 +2,21 @@
 
 module Inventory
   module Operations
-    class RevokeCertificateComplete < UpdateCertificate
+    class RenewCertificateComplete < UpdateCertificate
       protected
 
       def updatable?(certificate)
-        certificate[:status] == 'revoking'
+        certificate[:status] == 'renewing'
       end
 
       def certificate_updates(_certificate, context) =
         {
-          status: 'revoked',
-          revoked_at: context[:actioned_at]
+          status: 'renewed',
+          renewed_at: context[:actioned_at]
         }
 
       def error(_certificate) =
-        { status: ['must be "revoking"'] }
+        { status: ['must be "renewing"'] }
     end
   end
 end

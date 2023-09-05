@@ -1,5 +1,9 @@
 # Change log
 
+## [0.3.1] - 2023-09-05
+
+  * Changed error status to 500 (internal server errror) instead of 503 (service unavailable) for health check failure to be more semantically correct
+
 ## [0.3.0] - 2023-09-04
 
   * Revamped certificate renewal with linked certificate support

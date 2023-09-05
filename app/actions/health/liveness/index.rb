@@ -14,7 +14,7 @@ module Certbin
           def handle_request(_request) = check_database_liveness
 
           def success_body(result) = result.to_json
-          def error_status(_result) = :service_unavailable
+          def error_status(_result) = :internal_server_error
 
           def check_database_liveness
             if check_database_connection.call

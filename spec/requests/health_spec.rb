@@ -22,7 +22,7 @@ RSpec.describe 'GET /health/liveness', type: :request do
 
     get '/health/liveness'
 
-    expect(last_response.status).to eq(503) # service unavailable
+    expect(last_response.status).to eq(500) # Internal Server Error
     expect(last_response.content_type).to eq('application/json; charset=utf-8')
 
     response_body = JSON.parse(last_response.body)

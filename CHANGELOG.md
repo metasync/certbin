@@ -1,5 +1,10 @@
 # Change log
 
+## [0.3.3] - 2023-09-19
+
+  * Used environment variable, ELASTIC_APM_SERVICE_NAME, to set Elastic APM service name instead of hard-coding the service name
+  * Improved code format with Rubocop
+
 ## [0.3.2] - 2023-09-18
 
   * Integrated Elastic APM agent for Ruby

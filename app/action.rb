@@ -3,6 +3,7 @@
 
 require 'hanami/action'
 require 'rom'
+require 'elastic-apm'
 
 module Certbin
   class Action < Hanami::Action
@@ -10,6 +11,7 @@ module Certbin
 
     handle_exception ROM::TupleCountMismatchError => :handle_record_not_found
 
+    before :customize_apm_transaction
     before :validate_params
 
     def handle(request, response)
@@ -21,9 +23,18 @@ module Certbin
       end
     end
 
-    def authorization_required? = true
-
     protected
+
+    def customize_apm_transaction(request, _response)
+      transaction = ElasticAPM.current_transaction
+      return if transaction.nil?
+
+      transaction.name = 
+        [ 
+          request.request_method,
+          request.path_info
+        ].join(' ')
+    end
 
     def validate_params(request, _response)
       return if request.params.valid?

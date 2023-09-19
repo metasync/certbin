@@ -20,6 +20,8 @@ gem 'jwt', '~> 2.7'
 gem 'dry-monads', '~> 1.6'
 gem 'dry-effects', '~> 0.4'
 
+gem 'elastic-apm', '~> 4.7'
+
 group :development, :test do
   gem 'dotenv'
   gem 'amalgalite', '~> 1.6', '>= 1.6.3'

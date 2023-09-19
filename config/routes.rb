@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
+require 'elastic-apm'
+
 module Certbin
   class Routes < Hanami::Routes
     root { "Weclome to Certbin version #{Certbin::App::VERSION}" }
-    get '/health/liveness', to: 'health.liveness.index'
+    # get '/health/liveness', to: 'health.liveness.index'
 
     slice :inventory, at: '/inventory' do
     end
 
     slice :requester, at: '/certificates' do
       use Middleware::Warden::Authorization
+      use ElasticAPM::Middleware
 
       post '/', to: 'certificates.create'
       put '/:id/cancel', to: 'certificates.cancel'
@@ -36,6 +39,7 @@ module Certbin
 
     slice :issuer, at: '/issuer/certificates' do
       use Middleware::Warden::Authorization
+      use ElasticAPM::Middleware
 
       get '/:id/cert_request', to: 'certificates.show_certificate_request'
       get '/:id/cert_content', to: 'certificates.show_certificate_content'
@@ -48,6 +52,7 @@ module Certbin
 
     slice :deployer, at: '/deployer/certificates' do
       use Middleware::Warden::Authorization
+      use ElasticAPM::Middleware
 
       put '/:id/deploy_complete', to: 'certificates.deploy_complete'
       put '/:id/retire', to: 'certificates.retire'
@@ -56,12 +61,19 @@ module Certbin
 
     slice :auditor, at: '/auditor/audit_logs' do
       use Middleware::Warden::Authorization
+      use ElasticAPM::Middleware
 
       get '/certificate/:value', to: 'audit_logs.find_by_certificate_id'
       get '/first_certificate/:value', to: 'audit_logs.find_by_first_certificate_id'
       get '/action/:value', to: 'audit_logs.find_by_action'
       get '/actioned_by/:value', to: 'audit_logs.find_by_actioned_by'
       get '/action_group/:value', to: 'audit_logs.find_by_action_group'
+    end
+
+    slice :health, at: "/health" do
+      use ElasticAPM::Middleware
+
+      get "/liveness", to: "liveness.index"
     end
   end
 end

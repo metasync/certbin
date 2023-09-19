@@ -131,9 +131,15 @@ The following are the environment variables to be configured in the runtime envi
     * AUTHORIZE_BY_DEFAULT
       Turned on/off authorization (true/false)
       Default is true
+  
+  * Elastic APM
+    * ELASTIC_APM_SERVER_URL
+      URL for APM server for APM agent to send the APM data
+      e.g., ELASTIC_APM_SERVER_URL="http://localhost:8200"
 
 # Todos
 
   * Support token-based authentication (done)
   * Support database credential encryption
   * Support certificate history (done)
+  * Support Elastic APM (done)

@@ -29,8 +29,8 @@ module Certbin
       transaction = ElasticAPM.current_transaction
       return if transaction.nil?
 
-      transaction.name = 
-        [ 
+      transaction.name =
+        [
           request.request_method,
           request.path_info
         ].join(' ')

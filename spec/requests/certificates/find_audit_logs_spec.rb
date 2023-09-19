@@ -120,7 +120,7 @@ RSpec.describe 'GET /auditor/audit_logs', type: :request do
       expect(last_response).to be_successful
 
       audit_logs = JSON.parse(last_response.body)
-      expect(audit_logs.size).to be == 1
+      expect(audit_logs.size).to eq 1
       audit_log = audit_logs.first
       expect(audit_log['action_group']).to eq(action_group)
       changes = JSON.parse(audit_log['changes'])
@@ -131,7 +131,7 @@ RSpec.describe 'GET /auditor/audit_logs', type: :request do
       expect(last_response).to be_successful
 
       audit_logs = JSON.parse(last_response.body)
-      expect(audit_logs.size).to be == 1
+      expect(audit_logs.size).to eq 1
       audit_log = audit_logs.first
       expect(audit_log['action_group']).to eq(action_group)
       changes = JSON.parse(audit_log['changes'])

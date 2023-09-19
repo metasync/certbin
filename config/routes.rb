@@ -70,10 +70,10 @@ module Certbin
       get '/action_group/:value', to: 'audit_logs.find_by_action_group'
     end
 
-    slice :health, at: "/health" do
+    slice :health, at: '/health' do
       use ElasticAPM::Middleware
 
-      get "/liveness", to: "liveness.index"
+      get '/liveness', to: 'liveness.index'
     end
   end
 end

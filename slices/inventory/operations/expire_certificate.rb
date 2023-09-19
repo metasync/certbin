@@ -19,11 +19,7 @@ module Inventory
 
       def error(certificate)
         errors = {}
-        unless %w[deployed issued].include?(certificate[:status])
-          errors.merge!({
-                          status: ['must be "deployed", "issued" or "renewed"']
-                        })
-        end
+        errors.merge!({ status: ['must be "deployed", "issued" or "renewed"'] }) unless %w[deployed issued].include?(certificate[:status])
         unless certificate[:expires_on] &&
                certificate[:expires_on] <= Time.now
           errors.merge!({

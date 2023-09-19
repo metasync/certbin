@@ -8,11 +8,11 @@ port ENV.fetch('HANAMI_PORT', 8080)
 environment ENV.fetch('HANAMI_ENV', 'development')
 
 # Default single mode (number_of_workers = 0)
-web_concurrency = ENV.fetch('HANAMI_WEB_CONCURRENCY', 0) 
+web_concurrency = ENV.fetch('HANAMI_WEB_CONCURRENCY', 0)
 
 workers web_concurrency
 
-if web_concurrency > 0
+if web_concurrency.positive?
   # Cluster mode
   on_worker_boot do
     Hanami.shutdown

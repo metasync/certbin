@@ -25,17 +25,16 @@ module Inventory
       def find_by_host(host) = base_query.where(host:).to_a
 
       def find_renewable(days_before_renewal) =
-        base_query
-          .where do
-            Sequel[{ status: 'expired' }] |
+        base_query.where do
+          Sequel[{ status: 'expired' }] |
+            (
+              (Sequel[{ status: 'deployed' }]) &
               (
-                (Sequel[{ status: 'deployed' }]) &
-                (
-                  (expires_on <= Time.now + (days_before_renewal * 24 * 60 * 60)) &
-                  (expires_on > Time.now)
-                )
+                (expires_on <= Time.now + (days_before_renewal * 24 * 60 * 60)) &
+                (expires_on > Time.now)
               )
-          end.to_a
+            )
+        end.to_a
 
       def find_requested = find_by_status('requested')
 

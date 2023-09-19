@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Certbin
+module Health
   module Operations
     class CheckDatabaseConnection
       include Deps['settings']

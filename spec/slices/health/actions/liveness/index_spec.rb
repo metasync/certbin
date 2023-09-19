@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe Certbin::Actions::Health::Liveness::Index do
-  let(:params) { {} }
+RSpec.describe Health::Actions::Liveness::Index do
+  let(:params) { Hash[] }
 
-  it 'probes liveness' do
+  it 'probes health liveness' do
     response = subject.call(params)
     expect(response).to be_successful
     expect(response.format).to eq(:json)

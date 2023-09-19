@@ -1,5 +1,12 @@
 # Change log
 
+## [0.3.2] - 2023-09-18
+
+  * Integrated Elastic APM agent for Ruby
+  * Changed Puma to run in single mode by default since Certbin is supposed to run inside a container
+  * Moved health check to its own slice
+  * Minor code clean-up
+
 ## [0.3.1] - 2023-09-05
 
   * Changed error status to 500 (internal server errror) instead of 503 (service unavailable) for health check failure to be more semantically correct

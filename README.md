@@ -136,6 +136,8 @@ The following are the environment variables to be configured in the runtime envi
     * ELASTIC_APM_SERVER_URL
       URL for APM server for APM agent to send the APM data
       e.g., ELASTIC_APM_SERVER_URL="http://localhost:8200"
+    * ELASTIC_APM_SERVICE_NAME
+      Service name for Elastic APM
 
 # Todos
 

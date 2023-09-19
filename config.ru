@@ -4,7 +4,7 @@ require 'hanami/boot'
 require 'elastic-apm'
 
 ElasticAPM.start(
-  service_name: Hanami.app.app_name.name,
+  service_name: ENV.fetch('ELASTIC_APM_SERVICE_NAME', Hanami.app.app_name.name),
   framework_name: 'Hanami',
   framework_version: Hanami::VERSION
 )

@@ -6,10 +6,17 @@ threads min_threads_count, max_threads_count
 
 port ENV.fetch('HANAMI_PORT', 8080)
 environment ENV.fetch('HANAMI_ENV', 'development')
-workers ENV.fetch('HANAMI_WEB_CONCURRENCY', 2)
 
-on_worker_boot do
-  Hanami.shutdown
+# Default single mode (number_of_workers = 0)
+web_concurrency = ENV.fetch('HANAMI_WEB_CONCURRENCY', 0) 
+
+workers web_concurrency
+
+if web_concurrency > 0
+  # Cluster mode
+  on_worker_boot do
+    Hanami.shutdown
+  end
 end
 
 preload_app!

@@ -18,10 +18,10 @@ module Requester
             required(:template).filled(:string, included_in?: Hanami.app[:settings].cert_templates)
             required(:key_size).filled(:integer)
             required(:common_name).filled(:string)
-            required(:dns_records).array(:string)
 
-            required(:host).filled(:string)
-            required(:ip_addresses).array(:string)
+            required(:dns_records).array(:string)
+            optional(:ip_addresses).array(:string)
+            required(:hosts).array(:string)
 
             required(:install_method).filled(:string)
             required(:reference_id).maybe(:string)

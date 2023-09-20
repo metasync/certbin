@@ -30,7 +30,7 @@ RSpec.describe 'PUT /issuer/certificates/:id/renew', type: %i[request database] 
          locality state_or_province country
          owner email
          environment application
-         template key_size common_name host
+         template key_size common_name
          install_method reference_id].each do |attr|
         expect(next_cert.send(attr)).to eq(certificate[attr])
       end
@@ -76,7 +76,8 @@ RSpec.describe 'PUT /issuer/certificates/:id/renew', type: %i[request database] 
          locality state_or_province country
          owner email
          environment application
-         template key_size common_name host
+         template key_size common_name
+         
          install_method reference_id].each do |attr|
         expect(next_cert.send(attr)).to eq(certificate[attr])
       end

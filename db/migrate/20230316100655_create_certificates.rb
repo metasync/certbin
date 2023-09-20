@@ -22,8 +22,6 @@ ROM::SQL.migration do
       Integer :key_size, null: false
       String :common_name, null: false
 
-      String :host, null: false
-
       String :install_method, null: false
       String :reference_id
 
@@ -63,7 +61,6 @@ ROM::SQL.migration do
       index %i[environment status], name: 'certbin_certs_env_status'
       index %i[application environment status], name: 'certbin_certs_app_env_status'
       index :common_name
-      index :host
       index :serial_number
       index :status
       index %i[expires_on status environment], name: 'certbin_certs_exp_on_status_env'

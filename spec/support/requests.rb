@@ -42,7 +42,6 @@ RSpec.shared_context 'with sample certificate' do
       template: 'webserver',
       key_size: 4096,
       common_name: 'example.company.com',
-      host: 'prd-example-01',
       install_method: 'OCP',
       reference_id: '1234567890',
       # serial_number: null,
@@ -75,6 +74,13 @@ RSpec.shared_context 'with sample certificate' do
       ip_addresses: [
         {
           value: '233.233.233.233',
+          created_at: sample_date,
+          updated_at: sample_date
+        }
+      ],
+      hosts: [
+        {
+          value: 'prd-example-01',
           created_at: sample_date,
           updated_at: sample_date
         }

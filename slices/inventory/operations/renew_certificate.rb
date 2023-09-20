@@ -54,7 +54,7 @@ module Inventory
           common_name: certificate.common_name,
           dns_records: certificate.dns_records.map(&:value),
           ip_addresses: certificate.ip_addresses.map(&:value),
-          host: certificate.host,
+          hosts: certificate.hosts.map(&:value),
           install_method: certificate.install_method, # Windows / IIS / Manual
           reference_id: certificate.reference_id,
 

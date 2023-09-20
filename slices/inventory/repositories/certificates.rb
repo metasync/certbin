@@ -5,7 +5,8 @@ module Inventory
     class Certificates < Certbin::Repository[:certificates]
       include Deps[
         'repositories.certificate_ip_addresses',
-        'repositories.certificate_dns_records'
+        'repositories.certificate_dns_records',
+        'repositories.certificate_hosts'
       ]
 
       commands update: :by_pk, delete: :by_pk
@@ -21,8 +22,6 @@ module Inventory
 
       def find_by_status(status) =
         base_query.where(status:).to_a
-
-      def find_by_host(host) = base_query.where(host:).to_a
 
       def find_renewable(days_before_renewal) =
         base_query.where do
@@ -96,6 +95,17 @@ module Inventory
           end.to_a
       end
 
+      def find_by_host(host)
+        certificate_ids =
+          certificate_hosts.where(
+            value: host
+          ).select(:certificate_id).to_a.map(&:certificate_id)
+        base_query
+          .where do
+            { id: certificate_ids }
+          end.to_a
+      end
+
       def delete_all =
         certificates.command(:delete).call
 
@@ -105,6 +115,7 @@ module Inventory
         certificates
           .combine(:dns_records)
           .combine(:ip_addresses)
+          .combine(:hosts)
     end
   end
 end

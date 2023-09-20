@@ -29,20 +29,9 @@ module Inventory
       protected
 
       def new_certificate(certificate, context)
-        certificate[:dns_records].map! do |dns_record|
-          {
-            value: dns_record,
-            updated_at: context[:actioned_at],
-            created_at: context[:actioned_at]
-          }
-        end
-        certificate[:ip_addresses].map! do |ip_address|
-          {
-            value: ip_address,
-            updated_at: context[:actioned_at],
-            created_at: context[:actioned_at]
-          }
-        end
+        new_dns_records(certificate, context)
+        new_ip_addresses(certificate, context)
+        new_hosts(certificate, context)
         certificate.merge!(
           organization: settings.organization,
           locality: settings.locality,
@@ -53,6 +42,37 @@ module Inventory
           updated_at: context[:actioned_at],
           created_at: context[:actioned_at]
         )
+      end
+
+      def new_dns_records(certificate, context)
+        certificate[:dns_records].map! do |dns_record|
+          {
+            value: dns_record,
+            updated_at: context[:actioned_at],
+            created_at: context[:actioned_at]
+          }
+        end
+      end
+
+      def new_ip_addresses(certificate, context)
+        certificate[:ip_addresses] ||= []
+        certificate[:ip_addresses].map! do |ip_address|
+          {
+            value: ip_address,
+            updated_at: context[:actioned_at],
+            created_at: context[:actioned_at]
+          }
+        end
+      end
+
+      def new_hosts(certificate, context)
+        certificate[:hosts].map! do |host|
+          {
+            value: host,
+            updated_at: context[:actioned_at],
+            created_at: context[:actioned_at]
+          }
+        end
       end
     end
   end

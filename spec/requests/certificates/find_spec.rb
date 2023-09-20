@@ -54,6 +54,22 @@ RSpec.describe 'GET /certificates', type: :request do
     end
   end
 
+  context 'when given a host to find certificates' do
+    it 'returns certificates with the given host' do
+      get "/certificates/host/#{host}", {}.to_json, request_headers
+
+      expect(last_response).to be_successful
+
+      certificates = JSON.parse(last_response.body)
+      expect(certificates.size).to be >= 1
+      certificates.each do |certificate|
+        expect(certificate['hosts'].map do |host|
+          host['value']
+        end).to include(host)
+      end
+    end
+  end
+
   context 'when givne a status to find certificates' do
     it 'returns certificates with the given status' do
       get "/certificates/status/#{status}", {}.to_json, request_headers
@@ -64,20 +80,6 @@ RSpec.describe 'GET /certificates', type: :request do
       expect(certificates.size).to be >= 1
       certificates.each do |certificate|
         expect(certificate['status']).to eq(status)
-      end
-    end
-  end
-
-  context 'when given a host to find certificates' do
-    it 'returns certificates with the given host' do
-      get "/certificates/host/#{host}", {}.to_json, request_headers
-
-      expect(last_response).to be_successful
-
-      certificates = JSON.parse(last_response.body)
-      expect(certificates.size).to be >= 1
-      certificates.each do |certificate|
-        expect(certificate['host']).to eq(host)
       end
     end
   end

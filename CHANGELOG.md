@@ -1,5 +1,12 @@
 # Change log
 
+## [0.3.4] - 2023-09-19
+
+  * Supported multiple hosts to deploy for a given certificate
+  * Changed ip_addresses optional
+  * Removed incorrect host info in webserver certificate request template
+
+
 ## [0.3.3] - 2023-09-19
 
   * Used environment variable, ELASTIC_APM_SERVICE_NAME, to set Elastic APM service name instead of hard-coding the service name
